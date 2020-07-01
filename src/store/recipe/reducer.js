@@ -5,10 +5,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case "FETCH_RECIPES": {
-      return {
-        ...state.recipes,
-        ...action.payload,
-      };
+      return [...state.recipes, ...action.payload];
     }
 
     default: {
