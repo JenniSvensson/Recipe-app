@@ -7,7 +7,10 @@ import { getIngredients } from "../../store/ingredients/actions";
 
 export default function RecipeFinder() {
   const [recipes, setRecipes] = useState();
-  const [ingredient, setIngredient] = useState();
+  const [input, setInput] = useState({
+    ingredient: "",
+    flavourProfile: "",
+  });
 
   const Recipes = useSelector(selectRecipes);
   console.log(Recipes);
@@ -17,15 +20,27 @@ export default function RecipeFinder() {
   const dispatch = useDispatch();
 
   function handleClick(e) {
-    const result = Ingredients.find((Ingredient) => {
-      return Ingredient.name === ingredient;
+    const findByIngredient = Ingredients.find((Ingredient) => {
+      return Ingredient.name === input.ingredient;
     });
 
-    setRecipes(result.recipes);
+    if (
+      input.flavourProfile === "sweet" ||
+      input.flavourProfile === "salty" ||
+      input.flavourProfile === "savoury" ||
+      "spicy"
+    ) {
+      const filteredByFlavour = findByIngredient.recipes.filter((item) => {
+        return item.flavourProfile === input.flavourProfile;
+      });
+      setRecipes(filteredByFlavour);
+    } else {
+      return setRecipes(findByIngredient.recipes);
+    }
   }
 
   function handleChange(e) {
-    setIngredient(e.target.value);
+    setInput({ ...input, [e.target.name]: e.target.value });
   }
 
   useEffect(() => {
@@ -35,7 +50,7 @@ export default function RecipeFinder() {
       dispatch(getIngredients);
     }
   }, []);
-
+  console.log(input);
   return (
     <div>
       <h2>Please answer these questions!</h2>
@@ -49,10 +64,29 @@ export default function RecipeFinder() {
           </select> */}
           {Ingredients.length ? (
             <div>
-              <input type="text" list="data" onChange={handleChange} />
-              <datalist id="data">
+              <input
+                name="ingredient"
+                type="text"
+                list="ingredient"
+                onChange={handleChange}
+              />
+              <datalist id="ingredient">
                 {Ingredients.map((ingredient) => {
                   return <option key={ingredient.id} value={ingredient.name} />;
+                })}
+              </datalist>
+
+              <input
+                name="flavourProfile"
+                type="text"
+                list="flavourProfile"
+                onChange={handleChange}
+              />
+              <datalist id="flavourProfile">
+                {Recipes.map((recipe) => {
+                  return (
+                    <option key={recipe.id} value={recipe.flavourProfile} />
+                  );
                 })}
               </datalist>
               <input type="button" value="Search" onClick={handleClick} />
