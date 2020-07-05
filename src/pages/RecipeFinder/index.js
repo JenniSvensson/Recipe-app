@@ -15,28 +15,28 @@ export default function RecipeFinder() {
 
   const Recipes = useSelector(selectRecipes);
   console.log(Recipes);
-
   const Ingredients = useSelector(selectIngredients);
-
   const dispatch = useDispatch();
 
   function filterRecipe() {
-    const findByIngredient = Ingredients.find((Ingredient) => {
-      return Ingredient.name === input.ingredient;
-    });
-
-    if (
-      input.flavourProfile === "sweet" ||
-      input.flavourProfile === "salty" ||
-      input.flavourProfile === "savoury" ||
-      "spicy"
-    ) {
-      const filteredByFlavour = findByIngredient.recipes.filter((item) => {
-        return item.flavourProfile === input.flavourProfile;
+    if (Ingredients.length) {
+      const findByIngredient = Ingredients.find((Ingredient) => {
+        return Ingredient.name === input.ingredient;
       });
-      setRecipes(filteredByFlavour);
-    } else {
-      return setRecipes(findByIngredient.recipes);
+
+      if (
+        input.flavourProfile === "sweet" ||
+        input.flavourProfile === "salty" ||
+        input.flavourProfile === "savoury" ||
+        "spicy"
+      ) {
+        const filteredByFlavour = findByIngredient.recipes.filter((item) => {
+          return item.flavourProfile === input.flavourProfile;
+        });
+        setRecipes(filteredByFlavour);
+      } else {
+        return setRecipes(findByIngredient.recipes);
+      }
     }
   }
 
@@ -119,6 +119,7 @@ export default function RecipeFinder() {
             <div key={recipe.id}>
               <img src={`${recipe.imageUrl}`} />
               <h3> {recipe.name}</h3>
+              <a href={`/Recipes/${recipe.id}`}>See more details</a>
             </div>
           );
         })
