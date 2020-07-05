@@ -89,6 +89,17 @@ export default function RecipeFinder() {
                   );
                 })}
               </datalist>
+              <input
+                name="dishType"
+                type="text"
+                list="dishType"
+                onChange={handleChange}
+              />
+              <datalist id="dishType">
+                {Recipes.map((recipe) => {
+                  return <option key={recipe.id} value={recipe.dishType} />;
+                })}
+              </datalist>
               <input type="button" value="Search" onClick={handleClick} />
             </div>
           ) : (
