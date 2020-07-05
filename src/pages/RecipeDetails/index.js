@@ -18,5 +18,27 @@ export default function RecipeDetails() {
     }
   }, []);
 
-  return <div></div>;
+  return (
+    <div>
+      {thisRecipe ? (
+        <div>
+          <h2>{thisRecipe.name}</h2>
+          <img src={`${thisRecipe.imageUrl}`} />
+          <p>{thisRecipe.preperationTime} min</p>
+          <h4>Ingredients</h4>
+          {thisRecipe.ingredients.map((ingredient) => {
+            return (
+              <li key={ingredient.id}>
+                {ingredient.recipeIngredients.amount} {ingredient.name}
+              </li>
+            );
+          })}
+          <h4>Instructions</h4>
+          {thisRecipe.instructions}
+        </div>
+      ) : (
+        <p>Loading</p>
+      )}
+    </div>
+  );
 }
