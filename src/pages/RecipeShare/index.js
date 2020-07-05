@@ -4,7 +4,8 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import { selectToken, selectUser } from "../../store/user/selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { addRecipe } from "../../store/recipe/actions";
 
 export default function RecipeShare() {
   const dispatch = useDispatch();
@@ -19,6 +20,17 @@ export default function RecipeShare() {
   const history = useHistory();
 
   function handleForm(e) {
+    dispatch(
+      addRecipe(
+        name,
+        instructions,
+        imageUrl,
+        time,
+        flavourProfile,
+        dishType,
+        user
+      )
+    );
     e.preventDefault();
   }
 
@@ -40,7 +52,7 @@ export default function RecipeShare() {
           <Form.Control
             value={instructions}
             onChange={(event) => setInstructions(event.target.value)}
-            type="number"
+            type="text"
             placeholder="Enter instructions"
             required
           />
@@ -60,7 +72,7 @@ export default function RecipeShare() {
           <Form.Control
             value={time}
             onChange={(event) => setTime(event.target.value)}
-            type="text"
+            type="number"
             placeholder="Enter cookingtime"
             required
           />

@@ -18,3 +18,36 @@ export async function getRecipes(dispatch, getState) {
     console.log("error", error);
   }
 }
+
+export function addRecipe(
+  name,
+  instructions,
+  imageUrl,
+  time,
+  flavourProfile,
+  dishType,
+  user
+) {
+  try {
+    const id = parseInt(user.id);
+    return async function thunk(dispatch, getState) {
+      const response = await axios.post(
+        // API endpoint:
+        `${apiUrl}/recipe`,
+        // Data to be sent along:
+        {
+          name: name,
+          instructions: instructions,
+          imageUrl: imageUrl,
+          time: time,
+          flavourProfile: flavourProfile,
+          dishType: dishType,
+          userId: id,
+        },
+        { headers: { Authorization: `Bearer ${user.token}` } }
+      );
+    };
+  } catch (error) {
+    console.log(error);
+  }
+}
