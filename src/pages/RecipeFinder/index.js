@@ -10,6 +10,7 @@ export default function RecipeFinder() {
   const [input, setInput] = useState({
     ingredient: "",
     flavourProfile: "",
+    dishType: "",
   });
 
   const Recipes = useSelector(selectRecipes);
@@ -19,7 +20,7 @@ export default function RecipeFinder() {
 
   const dispatch = useDispatch();
 
-  function handleClick(e) {
+  function filterRecipe() {
     const findByIngredient = Ingredients.find((Ingredient) => {
       return Ingredient.name === input.ingredient;
     });
@@ -37,6 +38,10 @@ export default function RecipeFinder() {
     } else {
       return setRecipes(findByIngredient.recipes);
     }
+  }
+
+  function handleClick(e) {
+    filterRecipe();
   }
 
   function handleChange(e) {
