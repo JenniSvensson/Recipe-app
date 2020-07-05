@@ -14,17 +14,7 @@ import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 import { Jumbotron } from "react-bootstrap";
 import RecipeDetails from "./pages/RecipeDetails";
-
-const Home = () => (
-  <Jumbotron>
-    <h1>Home</h1>
-  </Jumbotron>
-);
-const Other = () => (
-  <Jumbotron>
-    <h1>Other</h1>
-  </Jumbotron>
-);
+import RecipeShare from "./pages/RecipeShare";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +33,7 @@ function App() {
         <Route exact path="/" component={Recipes} />
         <Route path="/recipes/:id" component={RecipeDetails} />
         <Route path="/recipefinder" component={RecipeFinder} />
+        <Route path="/recipeShare" component={RecipeShare} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
       </Switch>
