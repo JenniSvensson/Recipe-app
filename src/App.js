@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 import { Jumbotron } from "react-bootstrap";
+import RecipeDetails from "./pages/RecipeDetails";
 
 const Home = () => (
   <Jumbotron>
@@ -40,6 +41,7 @@ function App() {
       {isLoading ? <Loading /> : null}
       <Switch>
         <Route exact path="/" component={Recipes} />
+        <Route path="/recipes/:id" component={RecipeDetails} />
         <Route path="/recipefinder" component={RecipeFinder} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
