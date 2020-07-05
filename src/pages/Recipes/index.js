@@ -22,6 +22,7 @@ export default function Recipes() {
             <div key={Recipe.id}>
               <img src={`${Recipe.imageUrl}`} />
               <h3> {Recipe.name}</h3>
+              <a href={`/Recipes/${Recipe.id}`}>See more details</a>
             </div>
           );
         })
