@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectRecipes } from "../../store/recipe/selectors";
 import { selectIngredients } from "../../store/ingredients/selector";
-import { getRecipes } from "../../store/recipe/actions";
+import { getRecipes, getDietRecipes } from "../../store/recipe/actions";
 import { getIngredients } from "../../store/ingredients/actions";
 
 export default function RecipeFinder() {
@@ -11,6 +11,7 @@ export default function RecipeFinder() {
     ingredient: "",
     flavourProfile: "",
     dishType: "",
+    diet: "",
   });
 
   const Recipes = useSelector(selectRecipes);
@@ -19,28 +20,29 @@ export default function RecipeFinder() {
   const dispatch = useDispatch();
 
   function filterRecipe() {
-    if (Ingredients.length) {
-      const findByIngredient = Ingredients.find((Ingredient) => {
-        return Ingredient.name === input.ingredient;
-      });
-
-      if (
-        input.flavourProfile === "sweet" ||
-        input.flavourProfile === "salty" ||
-        input.flavourProfile === "savoury" ||
-        "spicy"
-      ) {
-        const filteredByFlavour = findByIngredient.recipes.filter((item) => {
-          return item.flavourProfile === input.flavourProfile;
-        });
-        setRecipes(filteredByFlavour);
-      } else {
-        return setRecipes(findByIngredient.recipes);
-      }
-    }
+    // if (Ingredients.length) {
+    //   const findByIngredient = Ingredients.find((Ingredient) => {
+    //     return Ingredient.name === input.ingredient;
+    //   });
+    //   if (
+    //     input.flavourProfile === "sweet" ||
+    //     input.flavourProfile === "salty" ||
+    //     input.flavourProfile === "savoury" ||
+    //     "spicy"
+    //   ) {
+    //     const filteredByFlavour = findByIngredient.recipes.filter((item) => {
+    //       return item.flavourProfile === input.flavourProfile;
+    //     });
+    //     setRecipes(filteredByFlavour);
+    //   } else {
+    //     return setRecipes(findByIngredient.recipes);
+    //   }
+    // }
   }
 
   function handleClick(e) {
+    console.log("what is this", input);
+    dispatch(getDietRecipes(input.diet));
     filterRecipe();
   }
 
@@ -62,11 +64,11 @@ export default function RecipeFinder() {
 
       {
         <form>
-          {/* <select name="filterDiets">
+          <select onChange={handleChange} name="diet">
             <option value="vegan">Vegan</option>
             <option value="vegetarian">Vegetarian</option>
             <option value="glutenFree">Gluten-free</option>
-          </select> */}
+          </select>
           {Ingredients.length ? (
             <div>
               <input
