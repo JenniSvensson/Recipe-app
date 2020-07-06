@@ -39,7 +39,7 @@ export function addRecipe(
           name: name,
           instructions: instructions,
           imageUrl: imageUrl,
-          time: time,
+          preperationTime: time,
           flavourProfile: flavourProfile,
           dishType: dishType,
           userId: id,
