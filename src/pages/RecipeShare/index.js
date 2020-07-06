@@ -13,8 +13,8 @@ export default function RecipeShare() {
   const [instructions, setInstructions] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [time, setTime] = useState("");
-  const [flavourProfile, setflavourProfile] = useState("salty");
-  const [dishType, setDishType] = useState("dinner");
+  const [flavourProfile, setflavourProfile] = useState("sweet");
+  const [dishType, setDishType] = useState("breakfast");
   const token = useSelector(selectToken);
   const user = useSelector(selectUser);
   const history = useHistory();
@@ -76,6 +76,32 @@ export default function RecipeShare() {
             placeholder="Enter cookingtime"
             required
           />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Flavour profile </Form.Label>
+          <Form.Control
+            value={flavourProfile}
+            onChange={(event) => setflavourProfile(event.target.value)}
+            as="select"
+          >
+            <option>sweet</option>
+            <option>salty</option>
+            <option>spicy</option>
+            <option>savory</option>
+          </Form.Control>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Dish type </Form.Label>
+          <Form.Control
+            value={dishType}
+            onChange={(event) => setDishType(event.target.value)}
+            as="select"
+          >
+            <option>breakfast</option>
+            <option>lunch</option>
+            <option>dinner</option>
+            <option>dessert</option>
+          </Form.Control>
         </Form.Group>
 
         <Form.Group className="mt-5">
