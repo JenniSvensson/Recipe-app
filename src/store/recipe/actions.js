@@ -8,6 +8,13 @@ export function fetchedRecipes(data) {
   };
 }
 
+export function fetchedDietRecipes(data) {
+  return {
+    type: "FETCH_DIETRECIPES",
+    payload: data,
+  };
+}
+
 export async function getRecipes(dispatch, getState) {
   try {
     const response = await axios.get(`${apiUrl}/recipe`);
@@ -17,6 +24,19 @@ export async function getRecipes(dispatch, getState) {
   } catch (error) {
     console.log("error", error);
   }
+}
+
+export function getDietRecipes(diet) {
+  return async function thunk(dispatch, getState) {
+    try {
+      const response = await axios.get(`${apiUrl}/recipe/diet?diet=${diet}`);
+
+      console.log("got the data", response.data);
+      dispatch(fetchedDietRecipes(response.data));
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 }
 
 export function addRecipe(

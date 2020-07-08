@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectRecipes } from "../../store/recipe/selectors";
+import {
+  selectRecipes,
+  selectfilteredRecipes,
+  selectfilteredIngredients,
+} from "../../store/recipe/selectors";
 import { selectIngredients } from "../../store/ingredients/selector";
-import { getRecipes } from "../../store/recipe/actions";
+import { getRecipes, getDietRecipes } from "../../store/recipe/actions";
 import { getIngredients } from "../../store/ingredients/actions";
 
 export default function RecipeFinder() {
@@ -11,75 +15,95 @@ export default function RecipeFinder() {
     ingredient: "",
     flavourProfile: "",
     dishType: "",
+    diet: "all",
   });
 
   const Recipes = useSelector(selectRecipes);
   console.log(Recipes);
-  const Ingredients = useSelector(selectIngredients);
+  const Ingredients = useSelector(selectfilteredIngredients);
+  const filteredRecipes = useSelector(selectfilteredRecipes);
   const dispatch = useDispatch();
 
   function filterRecipe() {
-    if (Ingredients.length) {
-      const findByIngredient = Ingredients.find((Ingredient) => {
-        return Ingredient.name === input.ingredient;
-      });
+    let validRecipes = filteredRecipes;
 
-      if (
-        input.flavourProfile === "sweet" ||
-        input.flavourProfile === "salty" ||
-        input.flavourProfile === "savoury" ||
-        "spicy"
-      ) {
-        const filteredByFlavour = findByIngredient.recipes.filter((item) => {
-          return item.flavourProfile === input.flavourProfile;
-        });
-        setRecipes(filteredByFlavour);
-      } else {
-        return setRecipes(findByIngredient.recipes);
-      }
+    if (input.ingredient) {
+      validRecipes = filteredRecipes.filter((recipie) => {
+        const validingredients = recipie.ingredients.some(
+          (ing) => ing.name === input.ingredient
+        );
+        return validingredients;
+      });
     }
+
+    validRecipes = validRecipes.filter((recipe) => {
+      const flavourProfileFilledIn = Boolean(input.flavourProfile);
+      const dishTypeFilledIn = Boolean(input.dishType);
+      switch (true) {
+        case flavourProfileFilledIn && !dishTypeFilledIn:
+          return recipe.flavourProfile === input.flavourProfile;
+
+        case !flavourProfileFilledIn && dishTypeFilledIn:
+          return recipe.dishType === input.dishType;
+
+        case flavourProfileFilledIn && dishTypeFilledIn:
+          return (
+            recipe.flavourProfile === input.flavourProfile &&
+            recipe.dishType === input.dishType
+          );
+
+        default:
+          //if there is none don't filter
+          return true;
+      }
+    });
+
+    setRecipes(validRecipes);
   }
 
   function handleClick(e) {
+    console.log("what is this", input);
     filterRecipe();
+    console.log(recipes);
   }
 
   function handleChange(e) {
     setInput({ ...input, [e.target.name]: e.target.value });
   }
 
+  console.log(Ingredients);
+
   useEffect(() => {
     //checks if there is no recipes or ingredients if so it will go and fetch them
     if (Recipes) {
-      dispatch(getRecipes);
       dispatch(getIngredients);
+      dispatch(getDietRecipes(input.diet));
     }
-  }, []);
+  }, [input.diet]);
   console.log(input);
   return (
     <div>
-      <h2>Please answer these questions!</h2>
+      <h2>Please answer these questions to find something nice to cook.</h2>
 
       {
         <form>
-          {/* <select name="filterDiets">
+          <select onChange={handleChange} name="diet">
+            <option value="">All</option>
             <option value="vegan">Vegan</option>
             <option value="vegetarian">Vegetarian</option>
             <option value="glutenFree">Gluten-free</option>
-          </select> */}
+          </select>
           {Ingredients.length ? (
             <div>
-              <input
-                name="ingredient"
-                type="text"
-                list="ingredient"
-                onChange={handleChange}
-              />
-              <datalist id="ingredient">
+              <select name="ingredient" type="text" onChange={handleChange}>
                 {Ingredients.map((ingredient) => {
-                  return <option key={ingredient.id} value={ingredient.name} />;
+                  return (
+                    <option key={ingredient.id} value={ingredient.name}>
+                      {ingredient.name}
+                    </option>
+                  );
                 })}
-              </datalist>
+              </select>
 
               <input
                 name="flavourProfile"
@@ -112,7 +136,6 @@ export default function RecipeFinder() {
           )}
         </form>
       }
-
       {recipes ? (
         recipes.map((recipe) => {
           return (

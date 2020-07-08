@@ -1,11 +1,21 @@
 const initialState = {
   recipes: [],
+  filteredecipes: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case "FETCH_RECIPES": {
-      return [...state.recipes, ...action.payload];
+      return {
+        recipes: [...action.payload],
+        filteredecipes: [...state.filteredecipes],
+      };
+    }
+    case "FETCH_DIETRECIPES": {
+      return {
+        recipes: [...state.recipes],
+        filteredecipes: [...action.payload],
+      };
     }
 
     default: {
