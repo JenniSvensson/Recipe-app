@@ -7,7 +7,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case "FETCH_RECIPES": {
       return {
-        recipes: [...state.recipes, ...action.payload],
+        recipes: [...action.payload],
         filteredecipes: [...state.filteredecipes],
       };
     }
