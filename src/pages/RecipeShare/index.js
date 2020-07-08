@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
 import { selectToken, selectUser } from "../../store/user/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { addRecipe } from "../../store/recipe/actions";
 
 export default function RecipeShare() {
   const dispatch = useDispatch();
@@ -18,98 +14,122 @@ export default function RecipeShare() {
   const token = useSelector(selectToken);
   const user = useSelector(selectUser);
   const history = useHistory();
+  const [inputIngredients, setInputIngredients] = useState([
+    { amount: "", ingredient: "" },
+  ]);
 
   function handleForm(e) {
-    dispatch(
-      addRecipe(
-        name,
-        instructions,
-        imageUrl,
-        time,
-        flavourProfile,
-        dishType,
-        user
-      )
-    );
     e.preventDefault();
+  }
+
+  const handleRemoveClick = (index) => {
+    const list = [...inputIngredients];
+    list.splice(index, 1);
+    setInputIngredients(list);
+  };
+
+  const handleAddClick = () => {
+    setInputIngredients([...inputIngredients, { amount: "", ingredient: "" }]);
+    console.log(inputIngredients);
+  };
+
+  function handleInputChange(e, index) {
+    const { name, value } = e.target;
+    const ingredientsList = [...inputIngredients];
+    ingredientsList[index][name] = value;
+    setInputIngredients(ingredientsList);
   }
 
   return (
     <div>
-      <Container>
-        <Form.Group>
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            type="text"
-            placeholder="Enter name"
-            required
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Instructions</Form.Label>
-          <Form.Control
-            value={instructions}
-            onChange={(event) => setInstructions(event.target.value)}
-            type="text"
-            placeholder="Enter instructions"
-            required
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Image url</Form.Label>
-          <Form.Control
-            value={imageUrl}
-            onChange={(event) => setImageUrl(event.target.value)}
-            type="text"
-            placeholder="Enter image url"
-            required
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Time</Form.Label>
-          <Form.Control
-            value={time}
-            onChange={(event) => setTime(event.target.value)}
-            type="number"
-            placeholder="Enter cookingtime"
-            required
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Flavour profile </Form.Label>
-          <Form.Control
-            value={flavourProfile}
-            onChange={(event) => setflavourProfile(event.target.value)}
-            as="select"
-          >
-            <option>sweet</option>
-            <option>salty</option>
-            <option>spicy</option>
-            <option>savory</option>
-          </Form.Control>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Dish type </Form.Label>
-          <Form.Control
-            value={dishType}
-            onChange={(event) => setDishType(event.target.value)}
-            as="select"
-          >
-            <option>breakfast</option>
-            <option>lunch</option>
-            <option>dinner</option>
-            <option>dessert</option>
-          </Form.Control>
-        </Form.Group>
+      <form>
+        <label htmlFor="name">Name </label>
+        <input
+          onChange={(event) => setName(event.target.value)}
+          type="text"
+          name="name"
+        />
+        <br></br>
+        <label htmlFor="instructions">Instructions</label>
+        <input
+          type="text"
+          name="Instructions"
+          onChange={(event) => setInstructions(event.target.value)}
+        />
+        <br></br>
+        {inputIngredients.map((inputIngredient, index) => {
+          return (
+            <div key={index}>
+              <input
+                name="amount"
+                type="number"
+                placeholder="Enter amount"
+                value={inputIngredient.amount}
+                onChange={(e) => handleInputChange(e, index)}
+              />
+              <input
+                name="ingredient"
+                placeholder="Enter ingredient"
+                value={inputIngredient.ingredient}
+                onChange={(e) => handleInputChange(e, index)}
+              />
 
-        <Form.Group className="mt-5">
-          <Button variant="primary" type="submit" onClick={handleForm}>
-            Share Recipe
-          </Button>
-        </Form.Group>
-      </Container>
+              <div>
+                {inputIngredients.length !== 1 && (
+                  <button onClick={() => handleRemoveClick(index)}>
+                    Remove
+                  </button>
+                )}
+                {inputIngredients.length - 1 === index && (
+                  <button onClick={handleAddClick}>Add</button>
+                )}
+              </div>
+            </div>
+          );
+        })}
+
+        <br></br>
+        <label htmlFor="imageUrl">Image Url </label>
+        <input
+          type="text"
+          name="imageUrl"
+          onChange={(event) => setImageUrl(event.target.value)}
+        />
+        <br></br>
+        <label htmlFor="time">Time</label>
+        <input
+          type="number"
+          name="time"
+          onChange={(event) => setTime(event.target.value)}
+        />
+        <br></br>
+        <label htmlFor="flavourProfile">Flavour profile</label>
+        <select
+          name="flavourProfile"
+          onChange={(event) => setflavourProfile(event.target.value)}
+        >
+          <option>sweet</option>
+          <option>salty</option>
+          <option>spicy</option>
+          <option>savory</option>
+        </select>
+        <br></br>
+        <label htmlFor="dishType">Dish type </label>
+
+        <select
+          type="text"
+          name="dishType"
+          onChange={(event) => setDishType(event.target.value)}
+        >
+          <option>breakfast</option>
+          <option>lunch</option>
+          <option>dinner</option>
+          <option>dessert</option>
+        </select>
+
+        <br></br>
+        <input type="submit" value="Submit" onClick={handleForm} />
+      </form>
     </div>
   );
 }
