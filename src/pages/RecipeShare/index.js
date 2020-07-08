@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { selectToken, selectUser } from "../../store/user/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-
+import { addRecipe } from "../../store/recipe/actions";
 export default function RecipeShare() {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
@@ -19,6 +19,18 @@ export default function RecipeShare() {
   ]);
 
   function handleForm(e) {
+    dispatch(
+      addRecipe(
+        name,
+        instructions,
+        imageUrl,
+        time,
+        flavourProfile,
+        dishType,
+        inputIngredients,
+        user
+      )
+    );
     e.preventDefault();
   }
 
@@ -62,7 +74,7 @@ export default function RecipeShare() {
             <div key={index}>
               <input
                 name="amount"
-                type="number"
+                type="text"
                 placeholder="Enter amount"
                 value={inputIngredient.amount}
                 onChange={(e) => handleInputChange(e, index)}
