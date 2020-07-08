@@ -46,6 +46,7 @@ export function addRecipe(
   time,
   flavourProfile,
   dishType,
+  inputIngredients,
   user
 ) {
   try {
@@ -62,6 +63,7 @@ export function addRecipe(
           preperationTime: time,
           flavourProfile: flavourProfile,
           dishType: dishType,
+          ingredients: inputIngredients,
           userId: id,
         },
         { headers: { Authorization: `Bearer ${user.token}` } }
