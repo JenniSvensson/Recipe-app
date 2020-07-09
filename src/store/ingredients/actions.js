@@ -11,7 +11,7 @@ export function fetchedIngredients(data) {
 export async function getIngredients(dispatch, getState) {
   try {
     const response = await axios.get(`${apiUrl}/ingredients`);
-    console.log("got the data", response.data);
+
     dispatch(fetchedIngredients(response.data));
   } catch (error) {
     console.log("error", error);
