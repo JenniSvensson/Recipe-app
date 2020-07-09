@@ -17,8 +17,6 @@ export default function Recipes() {
   const dispatch = useDispatch();
 
   const Recipes = useSelector(selectRecipes);
-  console.log("these are the recipes", Recipes);
-  console.log("this is the", Recipes.length);
 
   useEffect(() => {
     dispatch(getRecipes);
@@ -48,10 +46,8 @@ export default function Recipes() {
                         <br></br>
                         Dish type: {recipe.dishType}
                       </Card.Text>
-                      <Card.Link>
-                        <a href={`/Recipes/${recipe.id}`}>
-                          Go to the instructions
-                        </a>
+                      <Card.Link href={`/Recipes/${recipe.id}`}>
+                        Go to the instructions
                       </Card.Link>
                     </Card.Body>
                   </Card>
