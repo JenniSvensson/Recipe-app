@@ -59,7 +59,9 @@ export default function Recipes() {
               );
             })
           ) : (
-            <p> Loading</p>
+            <Spinner animation="border" role="status">
+              <span className="sr-only">Loading...</span>
+            </Spinner>
           )}
         </Row>
       </Container>

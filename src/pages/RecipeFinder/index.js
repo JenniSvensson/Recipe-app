@@ -174,9 +174,11 @@ export default function RecipeFinder() {
               </Container>
             </div>
           ) : (
-            <Spinner animation="border" role="status">
-              <span className="sr-only">Loading...</span>
-            </Spinner>
+            <Container>
+              <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            </Container>
           )}
         </form>
       }
