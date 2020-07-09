@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getRecipes } from "../../store/recipe/actions";
 import { selectRecipes, selectRecipeById } from "../../store/recipe/selectors";
+import { Spinner, Container, Image, Row, Col } from "react-bootstrap";
 export default function RecipeDetails() {
   const params = useParams();
   const RecipeId = parseInt(params.id);
@@ -21,23 +22,37 @@ export default function RecipeDetails() {
   return (
     <div>
       {thisRecipe ? (
-        <div>
+        <Container>
           <h2>{thisRecipe.name}</h2>
-          <img src={`${thisRecipe.imageUrl}`} />
-          <p>{thisRecipe.preperationTime} min</p>
-          <h4>Ingredients</h4>
-          {thisRecipe.ingredients.map((ingredient) => {
-            return (
-              <li key={ingredient.id}>
-                {ingredient.recipeIngredients.amount} {ingredient.name}
-              </li>
-            );
-          })}
-          <h4>Instructions</h4>
-          {thisRecipe.instructions}
-        </div>
+
+          <Image rounded fluid src={`${thisRecipe.imageUrl}`} />
+          <Row>
+            <p>{thisRecipe.preperationTime} min</p>{" "}
+          </Row>
+          <Row>
+            <Col md={4}>
+              {" "}
+              <h3>Ingredients</h3>
+              {thisRecipe.ingredients.map((ingredient) => {
+                return (
+                  <li key={ingredient.id}>
+                    {ingredient.recipeIngredients.amount} {ingredient.name}
+                  </li>
+                );
+              })}{" "}
+            </Col>
+
+            <Col md={{ span: 4, offset: 2 }}>
+              {" "}
+              <h3>Instructions</h3>
+              {thisRecipe.instructions}
+            </Col>
+          </Row>
+        </Container>
       ) : (
-        <p>Loading</p>
+        <Spinner animation="border" role="status">
+          <span className="sr-only">Loading...</span>
+        </Spinner>
       )}
     </div>
   );

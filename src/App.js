@@ -30,9 +30,9 @@ function App() {
       <MessageBox />
       {isLoading ? <Loading /> : null}
       <Switch>
-        <Route exact path="/" component={Recipes} />
+        <Route exact path="/" component={RecipeFinder} />
         <Route path="/recipes/:id" component={RecipeDetails} />
-        <Route path="/recipefinder" component={RecipeFinder} />
+        <Route path="/Discover" component={Recipes} />
         <Route path="/recipeShare" component={RecipeShare} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
