@@ -13,10 +13,8 @@ import {
   Button,
   Spinner,
   Container,
-  Image,
   Row,
   Card,
-  Badge,
   Col,
 } from "react-bootstrap";
 import "./recipeFinder.css";
