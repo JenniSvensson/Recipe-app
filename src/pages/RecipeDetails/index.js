@@ -10,7 +10,6 @@ export default function RecipeDetails() {
   const dispatch = useDispatch();
   const Recipes = useSelector(selectRecipes);
   const thisRecipe = useSelector(selectRecipeById(RecipeId));
-  console.log(thisRecipe);
 
   useEffect(() => {
     //checks if there is no recipes if so it will go and fetch them
