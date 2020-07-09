@@ -13,6 +13,7 @@ export default function RecipeShare() {
   const [flavourProfile, setflavourProfile] = useState("sweet");
   const [dishType, setDishType] = useState("breakfast");
   const user = useSelector(selectUser);
+  const token = useSelector(selectToken);
   const history = useHistory();
   const [inputIngredients, setInputIngredients] = useState([
     { amount: "", ingredient: "" },
@@ -60,6 +61,12 @@ export default function RecipeShare() {
     ingredientsList[index][name] = value;
     setInputIngredients(ingredientsList);
   }
+
+  useEffect(() => {
+    if (token === null) {
+      history.push("/");
+    }
+  }, [token, history]);
 
   return (
     <Form>
