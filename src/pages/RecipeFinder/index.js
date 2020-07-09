@@ -30,7 +30,6 @@ export default function RecipeFinder() {
   });
 
   const Recipes = useSelector(selectRecipes);
-  console.log(Recipes);
   const Ingredients = useSelector(selectfilteredIngredients);
   const filteredRecipes = useSelector(selectfilteredRecipes);
   const dispatch = useDispatch();
@@ -74,14 +73,11 @@ export default function RecipeFinder() {
 
   function handleClick(e) {
     filterRecipe();
-    console.log(recipes);
   }
 
   function handleChange(e) {
     setInput({ ...input, [e.target.name]: e.target.value });
   }
-
-  console.log(Ingredients);
 
   useEffect(() => {
     //checks if there is no recipes or ingredients if so it will go and fetch them
@@ -90,7 +86,7 @@ export default function RecipeFinder() {
       dispatch(getDietRecipes(input.diet));
     }
   }, [input.diet]);
-  console.log(input);
+
   return (
     <div>
       {
