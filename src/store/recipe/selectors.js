@@ -19,15 +19,18 @@ export function selectfilteredRecipes(reduxState) {
 }
 
 export function selectfilteredIngredients(reduxState) {
-  const ingredientsIds = [];
-  const result = reduxState.recipes.filteredecipes.flatMap((recipe) => {
-    return recipe.ingredients.filter((ingredient) => {
-      if (ingredientsIds.includes(ingredient.id)) {
-        return false;
-      }
-      ingredientsIds.push(ingredient.id);
-      return true;
-    });
-  });
-  return result || [];
+  const result = reduxState.ingredients;
+  return result;
+
+  // const ingredientsIds = [];
+  // const result = reduxState.recipes.filteredecipes.flatMap((recipe) => {
+  //   return recipe.ingredients.filter((ingredient) => {
+  //     if (ingredientsIds.includes(ingredient.id)) {
+  //       return false;
+  //     }
+  //     ingredientsIds.push(ingredient.id);
+  //     return true;
+  //   });
+  // });
+  // return result || [];
 }
