@@ -1,42 +1,31 @@
-# Frontend template
+## Recipe app
 
-This is a simple react/redux/jwt template to start a project quickly
+Ever struggled figuring out what to cook for dinner?, Well so do I every day. So I thought it would be nice to create an app that can solve this issue by giving some insperation. A user can search on recipes based on ingredients, flavour profile and other criteria. They can also add recipes themselves.
 
-## Table of contents:
+This project is still in development, for future functions look here:
+[HERE](https://github.com/JenniSvensson/Recipe-app-client/projects/1)
 
-- **[Setup](#setup-how-to-use-this-template)**
-- **[Create React App docs](#cra-docs)**
+## App demo
 
-## SETUP How to use this template
+## Used technologies and concepts
 
-1. Create a new project based on this template using the `Use this template` button
+## Goals for this project
 
-![HOW_TO_USE](https://user-images.githubusercontent.com/20372832/77003323-70966180-695d-11ea-8abe-b362d57135f3.gif)
+## User Stories
 
-2. Clone the app
+As a person looking for cooking inspiration, I want to ...
 
-```
-git clone git@github.com:YOUR_GITHUB_NAME/YOUR_PROJECT_NAME.git
-```
+- be able to search with a ingredient that I have at home so I don't need to buy more ingredients.
+- be able to filter the recipes based the type of meal, flavour profile and diet.
 
-3. cd into your project
+## Wireframe
 
-```
-cd YOUR_PROJECT_NAME
-```
+[Wireframe](https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/wireframe.png)
 
-4. install dependencies
+## Datamodel
 
-```
-npm install
-```
+[Datamodel](https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/database.svg)
 
-5. Start development server with npm start
+## Git version control
 
-```
-npm start
-```
-
-## CRA docs
-
-The normal Create React App docs can be found in [CRA_DOCS.md](./CRA_DOCS.md)
+## Server repo
