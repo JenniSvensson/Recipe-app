@@ -2,17 +2,7 @@ import React, { useEffect } from "react";
 import { getRecipes } from "../../store/recipe/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { selectRecipes } from "../../store/recipe/selectors";
-import {
-  Form,
-  Button,
-  Spinner,
-  Container,
-  Image,
-  Row,
-  Card,
-  Badge,
-  Col,
-} from "react-bootstrap";
+import { Spinner, Container, Row, Card, Col } from "react-bootstrap";
 export default function Recipes() {
   const dispatch = useDispatch();
 
