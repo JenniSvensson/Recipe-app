@@ -50,7 +50,7 @@ export function addRecipe(
   try {
     const id = parseInt(user.id);
     return async function thunk(dispatch, getState) {
-      const response = await axios.post(
+      await axios.post(
         // API endpoint:
         `${apiUrl}/recipe`,
         // Data to be sent along:
