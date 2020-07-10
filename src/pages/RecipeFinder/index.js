@@ -6,7 +6,7 @@ import {
   selectfilteredIngredients,
 } from "../../store/recipe/selectors";
 // import { selectIngredients } from "../../store/ingredients/selector";
-import { getRecipes, getDietRecipes } from "../../store/recipe/actions";
+import { getDietRecipes } from "../../store/recipe/actions";
 import { getIngredients } from "../../store/ingredients/actions";
 import {
   Form,

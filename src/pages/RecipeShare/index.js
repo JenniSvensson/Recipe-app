@@ -3,7 +3,7 @@ import { selectToken, selectUser } from "../../store/user/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { addRecipe } from "../../store/recipe/actions";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { Form, Button, Container } from "react-bootstrap";
 export default function RecipeShare() {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
