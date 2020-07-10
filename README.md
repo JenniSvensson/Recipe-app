@@ -20,11 +20,11 @@ As a person looking for cooking inspiration, I want to ...
 
 ## Wireframe
 
-[Wireframe]()
+[Wireframe](https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/wireframe.png)
 
 ## Datamodel
 
-[Datamodel]()
+[Datamodel](https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/database.svg)
 
 ## Git version control
 
