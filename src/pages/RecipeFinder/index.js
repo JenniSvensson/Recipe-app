@@ -104,10 +104,10 @@ export default function RecipeFinder() {
                     name="dishType"
                     as="select"
                   >
-                    <option value="Breakfast">Breakfast</option>
-                    <option value="Lunch">Lunch</option>
-                    <option value="Dinner">Dinner</option>
-                    <option value="Dessert">Dessert</option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
+                    <option value="dessert">Dessert</option>
                   </Form.Control>
                 </Form.Group>
               </Form.Group>
