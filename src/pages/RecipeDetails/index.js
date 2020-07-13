@@ -16,7 +16,7 @@ export default function RecipeDetails() {
     if (Recipes) {
       dispatch(getRecipes);
     }
-  }, []);
+  });
 
   return (
     <div>

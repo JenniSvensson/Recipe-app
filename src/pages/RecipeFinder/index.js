@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectRecipes,
   selectfilteredRecipes,
   selectfilteredIngredients,
   selectSearchedRecipes,
@@ -21,7 +20,6 @@ import {
 import "./recipeFinder.css";
 import { Link } from "react-router-dom";
 export default function RecipeFinder() {
-  const [recipes, setRecipes] = useState();
   const [input, setInput] = useState({
     ingredient: "",
     flavourProfile: "sweet",
@@ -29,7 +27,7 @@ export default function RecipeFinder() {
     diet: "all",
   });
 
-  const Recipes = useSelector(selectRecipes);
+  // const Recipes = useSelector(selectRecipes);
   const Ingredients = useSelector(selectfilteredIngredients);
   const filteredRecipes = useSelector(selectfilteredRecipes);
   const searchedRecipes = useSelector(selectSearchedRecipes);
@@ -69,7 +67,6 @@ export default function RecipeFinder() {
       }
     });
 
-    setRecipes(validRecipes);
     dispatch(getSearchedRecipe(validRecipes));
   }
 
@@ -83,11 +80,10 @@ export default function RecipeFinder() {
 
   useEffect(() => {
     //checks if there is no recipes or ingredients if so it will go and fetch them
-    if (Recipes) {
-      dispatch(getIngredients);
-      dispatch(getDietRecipes(input.diet));
-    }
-  }, [input.diet]);
+
+    dispatch(getIngredients);
+    dispatch(getDietRecipes(input.diet));
+  }, [dispatch, input.diet]);
 
   return (
     <div>
