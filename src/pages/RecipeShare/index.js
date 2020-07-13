@@ -18,7 +18,21 @@ export default function RecipeShare() {
   const token = useSelector(selectToken);
   const history = useHistory();
   const [inputIngredients, setInputIngredients] = useState([
-    { amount: "", ingredient: "" },
+    {
+      amount: "",
+      ingredient: "",
+      gluten: false,
+      peanut: false,
+      dairy: false,
+      egg: false,
+      seafood: false,
+      sesame: false,
+      shellfish: false,
+      soy: false,
+      meat: false,
+      treenuts: false,
+      wheat: false,
+    },
   ]);
 
   const initialValues = {
@@ -35,6 +49,21 @@ export default function RecipeShare() {
   };
 
   const onSubmit = (values) => {
+    // e.preventDefault();
+
+    dispatch(
+      addRecipe(
+        formik.values.name,
+        formik.values.instructions,
+        formik.values.imageUrl,
+        formik.values.time,
+        formik.values.flavourProfile,
+        formik.values.dishType,
+        inputIngredients,
+        user
+      )
+    );
+
     console.log("form data", values);
   };
 
@@ -66,7 +95,7 @@ export default function RecipeShare() {
     onSubmit,
     validate,
   });
-  console.log("formik errors", formik.errors);
+
   // function handleForm(e) {
   //   e.preventDefault();
 
@@ -99,16 +128,42 @@ export default function RecipeShare() {
   };
 
   const handleAddClick = () => {
-    setInputIngredients([...inputIngredients, { amount: "", ingredient: "" }]);
+    setInputIngredients([
+      ...inputIngredients,
+      {
+        amount: "",
+        ingredient: "",
+        gluten: false,
+        peanut: false,
+        dairy: false,
+        egg: false,
+        seafood: false,
+        sesame: false,
+        shellfish: false,
+        soy: false,
+        meat: false,
+        treenuts: false,
+        wheat: false,
+      },
+    ]);
     console.log(inputIngredients);
   };
 
-  // function handleInputChange(e, index) {
-  //   const { name, value } = e.target;
-  //   const ingredientsList = [...inputIngredients];
-  //   ingredientsList[index][name] = value;
-  //   setInputIngredients(ingredientsList);
-  // }
+  function handleInputChange(e, index) {
+    const { name, value } = e.target;
+    const ingredientsList = [...inputIngredients];
+    ingredientsList[index][name] = value;
+    setInputIngredients(ingredientsList);
+  }
+
+  function handleCheckBoxChange(e, index) {
+    const { name, checked } = e.target;
+    console.log("this is the name", name);
+    console.log("this is the value", checked);
+    const ingredientsList = [...inputIngredients];
+    ingredientsList[index][name] = checked;
+    setInputIngredients(ingredientsList);
+  }
 
   useEffect(() => {
     if (token === null) {
@@ -156,96 +211,107 @@ export default function RecipeShare() {
           return (
             <div key={index}>
               <input
-                name="ingredientRow.amount"
+                name="amount"
                 type="text"
                 placeholder="Enter amount"
-                onChange={formik.handleChange}
-                // value={inputIngredient.amount}
-                // onChange={(e) => handleInputChange(e, index)}
+                // onChange={formik.handleChange}
+                value={inputIngredient.amount}
+                onChange={(e) => handleInputChange(e, index)}
               />
               <input
-                name="ingredientRow.ingredient"
+                name="ingredient"
                 placeholder="Enter ingredient"
-                onChange={formik.handleChange}
-                // value={inputIngredient.ingredient}
-                // onChange={(e) => handleInputChange(e, index)}
+                // onChange={formik.handleChange}
+                value={inputIngredient.ingredient}
+                onChange={(e) => handleInputChange(e, index)}
               />
               <Form.Check
                 inline
                 label="gluten"
+                name="gluten"
                 type="checkbox"
-                onChange={formik.handleChange}
+                onChange={(e) => handleCheckBoxChange(e, index)}
                 id="gluten"
               />
               <Form.Check
                 inline
-                label="2"
+                label="peanut"
+                name="peanut"
                 type="checkbox"
-                onChange={formik.handleChange}
-                id="inline-checkbox-2"
+                onChange={(e) => handleCheckBoxChange(e, index)}
+                id="peanut"
               />
               <Form.Check
                 inline
-                label="2"
+                label="dairy"
+                name="dairy"
                 type="checkbox"
-                id="inline-checkbox-2"
-                onChange={formik.handleChange}
+                id="dairy"
+                onChange={(e) => handleCheckBoxChange(e, index)}
               />
               <Form.Check
                 inline
-                label="2"
+                label="egg"
+                name="egg"
                 type="checkbox"
-                onChange={formik.handleChange}
-                id="inline-checkbox-2"
+                onChange={(e) => handleCheckBoxChange(e, index)}
+                id="egg"
               />
               <Form.Check
                 inline
-                label="2"
+                label="seafood"
+                name="seafood"
                 type="checkbox"
-                onChange={formik.handleChange}
-                id="inline-checkbox-2"
+                onChange={(e) => handleCheckBoxChange(e, index)}
+                id="seafood"
               />
               <Form.Check
                 inline
-                label="2"
+                label="sesame"
+                name="sesame"
                 type="checkbox"
-                onChange={formik.handleChange}
-                id="inline-checkbox-2"
+                onChange={(e) => handleCheckBoxChange(e, index)}
+                id="sesame"
               />
               <Form.Check
                 inline
-                label="2"
+                label="shellfish"
+                name="shellfish"
                 type="checkbox"
-                onChange={formik.handleChange}
-                id="inline-checkbox-2"
+                onChange={(e) => handleCheckBoxChange(e, index)}
+                id="shellfish"
               />
               <Form.Check
                 inline
-                label="2"
+                label="soy"
+                name="soy"
                 type="checkbox"
-                onChange={formik.handleChange}
-                id="inline-checkbox-2"
+                onChange={(e) => handleCheckBoxChange(e, index)}
+                id="soy"
               />
               <Form.Check
                 inline
-                label="2"
+                label="meat"
+                name="meat"
                 type="checkbox"
-                onChange={formik.handleChange}
-                id="inline-checkbox-2"
+                onChange={(e) => handleCheckBoxChange(e, index)}
+                id="meat"
               />
               <Form.Check
                 inline
-                label="2"
+                label="treenuts"
+                name="treenuts"
                 type="checkbox"
-                onChange={formik.handleChange}
-                id="inline-checkbox-2"
+                onChange={(e) => handleCheckBoxChange(e, index)}
+                id="treenuts"
               />
               <Form.Check
                 inline
-                label="2"
+                label="wheat"
+                name="wheat"
                 type="checkbox"
-                onChange={formik.handleChange}
-                id="inline-checkbox-2"
+                onChange={(e) => handleCheckBoxChange(e, index)}
+                id="wheat"
               />
 
               <div>
