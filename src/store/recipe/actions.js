@@ -1,5 +1,6 @@
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
+import { setMessage } from "../appState/actions";
 
 export function fetchedRecipes(data) {
   return {
@@ -73,6 +74,8 @@ export function addRecipe(
         },
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
+
+      dispatch(setMessage("success", true, "Recipe have been created"));
     };
   } catch (error) {
     console.log(error);

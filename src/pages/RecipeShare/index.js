@@ -63,8 +63,6 @@ export default function RecipeShare() {
         user
       )
     );
-
-    console.log("form data", values);
   };
 
   const validate = (values) => {
