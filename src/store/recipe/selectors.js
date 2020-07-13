@@ -13,8 +13,13 @@ export const selectRecipeById = (id) => (reduxState) => {
   }
 };
 
+export function selectSearchedRecipes(reduxState) {
+  const result = reduxState.recipes.searchedRecipes;
+  return result;
+}
+
 export function selectfilteredRecipes(reduxState) {
-  const result = reduxState.recipes.filteredecipes;
+  const result = reduxState.recipes.filteredRecipes;
   return result;
 }
 
