@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectRecipes,
   selectfilteredRecipes,
   selectfilteredIngredients,
+  selectSearchedRecipes,
 } from "../../store/recipe/selectors";
 // import { selectIngredients } from "../../store/ingredients/selector";
-import { getRecipes, getDietRecipes } from "../../store/recipe/actions";
+import { getDietRecipes, getSearchedRecipe } from "../../store/recipe/actions";
 import { getIngredients } from "../../store/ingredients/actions";
 import {
   Form,
@@ -18,8 +18,8 @@ import {
   Col,
 } from "react-bootstrap";
 import "./recipeFinder.css";
+import { Link } from "react-router-dom";
 export default function RecipeFinder() {
-  const [recipes, setRecipes] = useState();
   const [input, setInput] = useState({
     ingredient: "",
     flavourProfile: "sweet",
@@ -27,9 +27,10 @@ export default function RecipeFinder() {
     diet: "all",
   });
 
-  const Recipes = useSelector(selectRecipes);
+  // const Recipes = useSelector(selectRecipes);
   const Ingredients = useSelector(selectfilteredIngredients);
   const filteredRecipes = useSelector(selectfilteredRecipes);
+  const searchedRecipes = useSelector(selectSearchedRecipes);
   const dispatch = useDispatch();
 
   function filterRecipe() {
@@ -66,7 +67,7 @@ export default function RecipeFinder() {
       }
     });
 
-    setRecipes(validRecipes);
+    dispatch(getSearchedRecipe(validRecipes));
   }
 
   function handleClick(e) {
@@ -79,11 +80,10 @@ export default function RecipeFinder() {
 
   useEffect(() => {
     //checks if there is no recipes or ingredients if so it will go and fetch them
-    if (Recipes) {
-      dispatch(getIngredients);
-      dispatch(getDietRecipes(input.diet));
-    }
-  }, [input.diet]);
+
+    dispatch(getIngredients);
+    dispatch(getDietRecipes(input.diet));
+  }, [dispatch, input.diet]);
 
   return (
     <div>
@@ -104,10 +104,10 @@ export default function RecipeFinder() {
                     name="dishType"
                     as="select"
                   >
-                    <option value="Breakfast">Breakfast</option>
-                    <option value="Lunch">Lunch</option>
-                    <option value="Dinner">Dinner</option>
-                    <option value="Dessert">Dessert</option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
+                    <option value="dessert">Dessert</option>
                   </Form.Control>
                 </Form.Group>
               </Form.Group>
@@ -171,8 +171,8 @@ export default function RecipeFinder() {
       <br></br>
       <Container>
         <Row>
-          {recipes ? (
-            recipes.map((recipe) => {
+          {searchedRecipes ? (
+            searchedRecipes.map((recipe) => {
               return (
                 <Col xs={3} className="mb-5 " key={recipe.id}>
                   <Card className="h-100 shadow-sm bg-white rounded">
@@ -191,9 +191,9 @@ export default function RecipeFinder() {
                         <br></br>
                         Dish type: {recipe.dishType}
                       </Card.Text>
-                      <Card.Link href={`/Recipes/${recipe.id}`}>
+                      <Link to={`/Recipes/${recipe.id}`}>
                         Go to the instructions
-                      </Card.Link>
+                      </Link>
                     </Card.Body>
                   </Card>
                 </Col>

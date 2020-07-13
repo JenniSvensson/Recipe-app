@@ -1,5 +1,6 @@
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
+import { setMessage } from "../appState/actions";
 
 export function fetchedRecipes(data) {
   return {
@@ -11,6 +12,13 @@ export function fetchedRecipes(data) {
 export function fetchedDietRecipes(data) {
   return {
     type: "FETCH_DIETRECIPES",
+    payload: data,
+  };
+}
+
+export function getSearchedRecipe(data) {
+  return {
+    type: "FETCH_SEARCHRECIPES",
     payload: data,
   };
 }
@@ -50,7 +58,7 @@ export function addRecipe(
   try {
     const id = parseInt(user.id);
     return async function thunk(dispatch, getState) {
-      const response = await axios.post(
+      await axios.post(
         // API endpoint:
         `${apiUrl}/recipe`,
         // Data to be sent along:
@@ -66,6 +74,8 @@ export function addRecipe(
         },
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
+
+      dispatch(setMessage("success", true, "Recipe have been created"));
     };
   } catch (error) {
     console.log(error);
