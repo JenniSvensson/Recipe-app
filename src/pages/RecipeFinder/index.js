@@ -4,9 +4,10 @@ import {
   selectRecipes,
   selectfilteredRecipes,
   selectfilteredIngredients,
+  selectSearchedRecipes,
 } from "../../store/recipe/selectors";
 // import { selectIngredients } from "../../store/ingredients/selector";
-import { getDietRecipes } from "../../store/recipe/actions";
+import { getDietRecipes, getSearchedRecipe } from "../../store/recipe/actions";
 import { getIngredients } from "../../store/ingredients/actions";
 import {
   Form,
@@ -18,6 +19,7 @@ import {
   Col,
 } from "react-bootstrap";
 import "./recipeFinder.css";
+import { Link } from "react-router-dom";
 export default function RecipeFinder() {
   const [recipes, setRecipes] = useState();
   const [input, setInput] = useState({
@@ -30,6 +32,7 @@ export default function RecipeFinder() {
   const Recipes = useSelector(selectRecipes);
   const Ingredients = useSelector(selectfilteredIngredients);
   const filteredRecipes = useSelector(selectfilteredRecipes);
+  const searchedRecipes = useSelector(selectSearchedRecipes);
   const dispatch = useDispatch();
 
   function filterRecipe() {
@@ -67,6 +70,7 @@ export default function RecipeFinder() {
     });
 
     setRecipes(validRecipes);
+    dispatch(getSearchedRecipe(validRecipes));
   }
 
   function handleClick(e) {
@@ -171,8 +175,8 @@ export default function RecipeFinder() {
       <br></br>
       <Container>
         <Row>
-          {recipes ? (
-            recipes.map((recipe) => {
+          {searchedRecipes ? (
+            searchedRecipes.map((recipe) => {
               return (
                 <Col xs={3} className="mb-5 " key={recipe.id}>
                   <Card className="h-100 shadow-sm bg-white rounded">
@@ -191,9 +195,9 @@ export default function RecipeFinder() {
                         <br></br>
                         Dish type: {recipe.dishType}
                       </Card.Text>
-                      <Card.Link href={`/Recipes/${recipe.id}`}>
+                      <Link to={`/Recipes/${recipe.id}`}>
                         Go to the instructions
-                      </Card.Link>
+                      </Link>
                     </Card.Body>
                   </Card>
                 </Col>

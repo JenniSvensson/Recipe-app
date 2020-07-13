@@ -15,6 +15,13 @@ export function fetchedDietRecipes(data) {
   };
 }
 
+export function getSearchedRecipe(data) {
+  return {
+    type: "FETCH_SEARCHRECIPES",
+    payload: data,
+  };
+}
+
 export async function getRecipes(dispatch, getState) {
   try {
     const response = await axios.get(`${apiUrl}/recipe`);
