@@ -35,7 +35,6 @@ export default function RecipeFinder() {
 
   function filterRecipe() {
     let validRecipes = filteredRecipes;
-
     if (input.ingredient) {
       validRecipes = filteredRecipes.filter((recipie) => {
         const validingredients = recipie.ingredients.some(
@@ -141,7 +140,7 @@ export default function RecipeFinder() {
 
                 <input
                   className="inputForm"
-                  name="ingredients"
+                  name="ingredient"
                   type="text"
                   list="ingredients"
                   onChange={handleChange}
