@@ -13,8 +13,6 @@ export default function Recipes() {
   }, [dispatch]);
   return (
     <div>
-      <h2>Discover</h2>
-
       <Container>
         <Row>
           {Recipes.length ? (
