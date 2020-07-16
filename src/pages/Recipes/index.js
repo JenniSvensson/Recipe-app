@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { getRecipes } from "../../store/recipe/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { selectRecipes } from "../../store/recipe/selectors";
+import { Link } from "react-router-dom";
 import { Spinner, Container, Row, Card, Col } from "react-bootstrap";
 export default function Recipes() {
   const dispatch = useDispatch();
@@ -34,9 +35,9 @@ export default function Recipes() {
                         <br></br>
                         Dish type: {recipe.dishType}
                       </Card.Text>
-                      <Card.Link href={`/Recipes/${recipe.id}`}>
+                      <Link to={`/Recipes/${recipe.id}`}>
                         Go to the instructions
-                      </Card.Link>
+                      </Link>
                     </Card.Body>
                   </Card>
                 </Col>
