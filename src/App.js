@@ -31,7 +31,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={RecipeFinder} />
         <Route path="/recipes/:id" component={RecipeDetails} />
-        <Route path="/recipes" component={Recipes} />
+        <Route path="/allRecipes" component={Recipes} />
         <Route path="/recipeShare" component={RecipeShare} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
