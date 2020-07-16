@@ -1,6 +1,6 @@
 ## 🥘 Recipe app 🍴
 
-[Deployed version here](https://recipefilterapp.netlify.app/)
+✨[Deployed version here](https://recipefilterapp.netlify.app/)✨
 
 Ever struggled figuring out what to cook for dinner? Well, so do I every day. So I thought it would be nice to create an app that can solve this issue by giving some inspiration. A user can search on recipes based on ingredients, flavour profile and other criteria. They can also add recipes themselves.
 
