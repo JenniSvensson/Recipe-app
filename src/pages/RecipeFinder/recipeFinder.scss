@@ -1,0 +1,33 @@
+@import "src/App.scss";
+
+.inputForm {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.header-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.header-column {
+  flex: 20%;
+  padding: 5px;
+}
+
+.spinner {
+  @include align-center;
+}
+
+.footer {
+  margin-bottom: 1px;
+  margin-left: 5px;
+
+  bottom: 0;
+}

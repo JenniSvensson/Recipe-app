@@ -14,9 +14,9 @@ export default function Navigation() {
   const loginLogoutControls = token ? <LoggedIn /> : <LoggedOut />;
 
   return (
-    <Navbar bg="light" expand="lg">
-      <Navbar.Brand as={NavLink} to="/">
-        RECIPE APP
+    <Navbar expand="lg">
+      <Navbar.Brand className="RecipeFinder" as={NavLink} to="/">
+        🥗 Recipe Finder
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
