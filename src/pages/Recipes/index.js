@@ -3,7 +3,7 @@ import { getRecipes } from "../../store/recipe/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { selectRecipes } from "../../store/recipe/selectors";
 import { Link } from "react-router-dom";
-import { Spinner, Container, Row, Card, Col, CardDeck } from "react-bootstrap";
+import { Spinner, Container, Card, Col, CardDeck } from "react-bootstrap";
 export default function Recipes() {
   const dispatch = useDispatch();
 
