@@ -13,11 +13,13 @@ import {
   Button,
   Spinner,
   Container,
-  Row,
+  CardDeck,
   Card,
   Col,
+  Image,
 } from "react-bootstrap";
-import "./recipeFinder.css";
+import "./recipeFinder.scss";
+import food from "./images/Cooking.png";
 import { Link } from "react-router-dom";
 export default function RecipeFinder() {
   const [input, setInput] = useState({
@@ -89,10 +91,25 @@ export default function RecipeFinder() {
       {Ingredients.length ? (
         <div>
           <Container>
-            <h3>
-              Please answer these questions to find something nice to cook.
-            </h3>
+            <div className="header-row">
+              <div className="header-column">
+                <h1>Find the perfect recipe</h1>
+                <p>
+                  Parsley shallot courgette tatsoi pea sprouts fava bean collard
+                  greens dandelion okra wakame tomato.
+                </p>
+              </div>
+              <div className="header-column">
+                <Image src={food} className="w-30 h-30" fluid alt="food" />
+              </div>
+            </div>
+          </Container>
 
+          <Container className=" mt-5">
+            <p>
+              Let's start! Please answer these questions to find something nice
+              to cook.
+            </p>
             <Form>
               <Form.Group>
                 <p>I am going to eat </p>
@@ -152,16 +169,14 @@ export default function RecipeFinder() {
                 </datalist>
               </Form.Group>
             </Form>
-
             <br></br>
-
             <Button variant="primary" onClick={handleClick}>
               Search
             </Button>
           </Container>
         </div>
       ) : (
-        <Container>
+        <Container className=" mt-5 spinner">
           <Spinner animation="border" role="status">
             <span className="sr-only">Loading...</span>
           </Spinner>
@@ -169,15 +184,15 @@ export default function RecipeFinder() {
       )}
       <br></br>
       <Container>
-        <Row>
+        <CardDeck>
           {searchedRecipes ? (
             searchedRecipes.map((recipe) => {
               return (
-                <Col xs={3} className="mb-5 " key={recipe.id}>
+                <Col className="col-md-4 mt-4" key={recipe.id}>
                   <Card className="h-100 shadow-sm bg-white rounded">
                     <Card.Img variant="top" src={`${recipe.imageUrl}`} />
                     <Card.Body className="d-flex flex-column">
-                      <div className="d-flex mb-2 justify-content-between ">
+                      <div>
                         <Card.Title className="mb-0 font-weight-bold">
                           {recipe.name}
                         </Card.Title>
@@ -201,8 +216,14 @@ export default function RecipeFinder() {
           ) : (
             <p></p>
           )}
-        </Row>
+        </CardDeck>
+        <br></br>
       </Container>
+      <div className="footer">
+        <a href="https://stories.freepik.com/hobby">
+          Illustration by Freepik Stories
+        </a>
+      </div>
     </div>
   );
 }
