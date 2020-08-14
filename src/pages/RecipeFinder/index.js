@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectRecipes,
   selectfilteredRecipes,
   selectfilteredIngredients,
+  selectSearchedRecipes,
 } from "../../store/recipe/selectors";
 // import { selectIngredients } from "../../store/ingredients/selector";
-import { getDietRecipes } from "../../store/recipe/actions";
+import { getDietRecipes, getSearchedRecipe } from "../../store/recipe/actions";
 import { getIngredients } from "../../store/ingredients/actions";
 import {
   Form,
   Button,
   Spinner,
   Container,
-  Row,
+  CardDeck,
   Card,
   Col,
+  Image,
 } from "react-bootstrap";
-import "./recipeFinder.css";
+import "./recipeFinder.scss";
+import food from "./images/Cooking.png";
+import { Link } from "react-router-dom";
 export default function RecipeFinder() {
-  const [recipes, setRecipes] = useState();
   const [input, setInput] = useState({
     ingredient: "",
     flavourProfile: "sweet",
@@ -27,14 +29,14 @@ export default function RecipeFinder() {
     diet: "all",
   });
 
-  const Recipes = useSelector(selectRecipes);
+  // const Recipes = useSelector(selectRecipes);
   const Ingredients = useSelector(selectfilteredIngredients);
   const filteredRecipes = useSelector(selectfilteredRecipes);
+  const searchedRecipes = useSelector(selectSearchedRecipes);
   const dispatch = useDispatch();
 
   function filterRecipe() {
     let validRecipes = filteredRecipes;
-
     if (input.ingredient) {
       validRecipes = filteredRecipes.filter((recipie) => {
         const validingredients = recipie.ingredients.some(
@@ -66,7 +68,7 @@ export default function RecipeFinder() {
       }
     });
 
-    setRecipes(validRecipes);
+    dispatch(getSearchedRecipe(validRecipes));
   }
 
   function handleClick(e) {
@@ -79,21 +81,35 @@ export default function RecipeFinder() {
 
   useEffect(() => {
     //checks if there is no recipes or ingredients if so it will go and fetch them
-    if (Recipes) {
-      dispatch(getIngredients);
-      dispatch(getDietRecipes(input.diet));
-    }
-  }, [input.diet]);
+
+    dispatch(getIngredients);
+    dispatch(getDietRecipes(input.diet));
+  }, [dispatch, input.diet]);
 
   return (
     <div>
       {Ingredients.length ? (
         <div>
           <Container>
-            <h3>
-              Please answer these questions to find something nice to cook.
-            </h3>
+            <div className="header-row">
+              <div className="header-column">
+                <h1>Find the perfect recipe</h1>
+                <p>
+                  Parsley shallot courgette tatsoi pea sprouts fava bean collard
+                  greens dandelion okra wakame tomato.
+                </p>
+              </div>
+              <div className="header-column">
+                <Image src={food} className="w-30 h-30" fluid alt="food" />
+              </div>
+            </div>
+          </Container>
 
+          <Container className=" mt-5">
+            <p>
+              Let's start! Please answer these questions to find something nice
+              to cook.
+            </p>
             <Form>
               <Form.Group>
                 <p>I am going to eat </p>
@@ -141,7 +157,7 @@ export default function RecipeFinder() {
 
                 <input
                   className="inputForm"
-                  name="ingredients"
+                  name="ingredient"
                   type="text"
                   list="ingredients"
                   onChange={handleChange}
@@ -153,16 +169,14 @@ export default function RecipeFinder() {
                 </datalist>
               </Form.Group>
             </Form>
-
             <br></br>
-
             <Button variant="primary" onClick={handleClick}>
               Search
             </Button>
           </Container>
         </div>
       ) : (
-        <Container>
+        <Container className=" mt-5 spinner">
           <Spinner animation="border" role="status">
             <span className="sr-only">Loading...</span>
           </Spinner>
@@ -170,15 +184,15 @@ export default function RecipeFinder() {
       )}
       <br></br>
       <Container>
-        <Row>
-          {recipes ? (
-            recipes.map((recipe) => {
+        <CardDeck>
+          {searchedRecipes ? (
+            searchedRecipes.map((recipe) => {
               return (
-                <Col xs={3} className="mb-5 " key={recipe.id}>
+                <Col className="col-md-4 mt-4" key={recipe.id}>
                   <Card className="h-100 shadow-sm bg-white rounded">
                     <Card.Img variant="top" src={`${recipe.imageUrl}`} />
                     <Card.Body className="d-flex flex-column">
-                      <div className="d-flex mb-2 justify-content-between ">
+                      <div>
                         <Card.Title className="mb-0 font-weight-bold">
                           {recipe.name}
                         </Card.Title>
@@ -191,9 +205,9 @@ export default function RecipeFinder() {
                         <br></br>
                         Dish type: {recipe.dishType}
                       </Card.Text>
-                      <Card.Link href={`/Recipes/${recipe.id}`}>
+                      <Link to={`/Recipes/${recipe.id}`}>
                         Go to the instructions
-                      </Card.Link>
+                      </Link>
                     </Card.Body>
                   </Card>
                 </Col>
@@ -202,8 +216,14 @@ export default function RecipeFinder() {
           ) : (
             <p></p>
           )}
-        </Row>
+        </CardDeck>
+        <br></br>
       </Container>
+      <div className="footer">
+        <a href="https://stories.freepik.com/hobby">
+          Illustration by Freepik Stories
+        </a>
+      </div>
     </div>
   );
 }

@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { getRecipes } from "../../store/recipe/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { selectRecipes } from "../../store/recipe/selectors";
-import { Spinner, Container, Row, Card, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { Spinner, Container, Card, Col, CardDeck } from "react-bootstrap";
 export default function Recipes() {
   const dispatch = useDispatch();
 
@@ -13,18 +14,16 @@ export default function Recipes() {
   }, [dispatch]);
   return (
     <div>
-      <h2>Discover</h2>
-
-      <Container>
-        <Row>
+      <Container className="mt-5">
+        <CardDeck>
           {Recipes.length ? (
             Recipes.map((recipe) => {
               return (
-                <Col xs={3} className="mb-5 " key={recipe.id}>
+                <Col className="col-md-4 mt-4">
                   <Card className="h-100 shadow-sm bg-white rounded">
                     <Card.Img variant="top" src={`${recipe.imageUrl}`} />
-                    <Card.Body className="d-flex flex-column">
-                      <div className="d-flex mb-2 justify-content-between ">
+                    <Card.Body>
+                      <div>
                         <Card.Title className="mb-0 font-weight-bold">
                           {recipe.name}
                         </Card.Title>
@@ -36,20 +35,22 @@ export default function Recipes() {
                         <br></br>
                         Dish type: {recipe.dishType}
                       </Card.Text>
-                      <Card.Link href={`/Recipes/${recipe.id}`}>
+                      <Link to={`/Recipes/${recipe.id}`}>
                         Go to the instructions
-                      </Card.Link>
+                      </Link>
                     </Card.Body>
                   </Card>
                 </Col>
               );
             })
           ) : (
-            <Spinner animation="border" role="status">
-              <span className="sr-only">Loading...</span>
-            </Spinner>
+            <Container className="spinner">
+              <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            </Container>
           )}
-        </Row>
+        </CardDeck>
       </Container>
     </div>
   );

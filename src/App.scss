@@ -1,0 +1,15 @@
+@import "./style/config";
+
+$theme-colors: (
+  "primary": #3a8f81,
+);
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+@mixin align-center {
+  width: 70px;
+  height: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
