@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { addRecipe } from "../../store/recipe/actions";
 import { Form, Button, Container } from "react-bootstrap";
-import "./recipeShare.css";
+import "./recipeShare.scss";
 import { useFormik } from "formik";
 export default function RecipeShare() {
   const dispatch = useDispatch();
@@ -178,6 +178,7 @@ export default function RecipeShare() {
           <Form.Label>Name</Form.Label>
           <Form.Control
             name="name"
+            className="selectInput"
             value={formik.values.name}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -192,6 +193,7 @@ export default function RecipeShare() {
         <Form.Group controlId="formBasicInstructions">
           <Form.Label>Instructions</Form.Label>
           <Form.Control
+            className="selectInput"
             name="instructions"
             value={formik.values.instructions}
             onChange={formik.handleChange}
@@ -329,6 +331,7 @@ export default function RecipeShare() {
         <Form.Group controlId="formBasicImageUrl">
           <Form.Label>Image Url</Form.Label>
           <Form.Control
+            className="selectInput"
             name="imageUrl"
             value={formik.values.imageUrl}
             onChange={formik.handleChange}
@@ -344,6 +347,7 @@ export default function RecipeShare() {
         <Form.Group controlId="formBasicTime">
           <Form.Label>Time</Form.Label>
           <Form.Control
+            className="selectInput"
             name="time"
             value={formik.values.time}
             onBlur={formik.handleBlur}
@@ -359,6 +363,7 @@ export default function RecipeShare() {
         <Form.Group controlId="formBasicFlavourProfile">
           <Form.Label>Flavour profile</Form.Label>
           <Form.Control
+            className="selectInput"
             value={formik.values.flavourProfile}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
@@ -379,6 +384,7 @@ export default function RecipeShare() {
           <Form.Label>Dish type</Form.Label>
           <Form.Control
             // onChange={(event) => setDishType(event.target.value)}
+            className="selectInput"
             value={formik.values.dishType}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
