@@ -41,7 +41,7 @@ export default function RecipeDetails() {
               })}{" "}
             </Col>
 
-            <Col md={{ span: 4, offset: 1 }}>
+            <Col md={{ span: 4 }}>
               {" "}
               <h3>Instructions</h3>
               {thisRecipe.instructions}

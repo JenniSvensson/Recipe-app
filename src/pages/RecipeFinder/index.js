@@ -119,6 +119,7 @@ export default function RecipeFinder() {
                     onChange={handleChange}
                     name="dishType"
                     as="select"
+                    className="selectInput"
                   >
                     <option value="breakfast">Breakfast</option>
                     <option value="lunch">Lunch</option>
@@ -130,7 +131,12 @@ export default function RecipeFinder() {
 
               <p>I want it to be </p>
               <Form.Group>
-                <Form.Control onChange={handleChange} name="diet" as="select">
+                <Form.Control
+                  onChange={handleChange}
+                  className="selectInput"
+                  name="diet"
+                  as="select"
+                >
                   <option value="">All</option>
                   <option value="vegan">Vegan</option>
                   <option value="vegetarian">Vegetarian</option>
@@ -144,6 +150,7 @@ export default function RecipeFinder() {
                   onChange={handleChange}
                   name="flavourProfile"
                   as="select"
+                  className="selectInput"
                 >
                   <option value="sweet">Sweet</option>
                   <option value="salty">Salty</option>
@@ -156,7 +163,7 @@ export default function RecipeFinder() {
                 <p>It has to contain</p>
 
                 <input
-                  className="inputForm"
+                  className="selectInput"
                   name="ingredient"
                   type="text"
                   list="ingredients"
