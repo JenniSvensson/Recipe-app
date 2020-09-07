@@ -8,12 +8,6 @@ import "./recipeShare.scss";
 import { useFormik } from "formik";
 export default function RecipeShare() {
   const dispatch = useDispatch();
-  // const [name, setName] = useState("");
-  // const [instructions, setInstructions] = useState("");
-  // const [imageUrl, setImageUrl] = useState("");
-  // const [time, setTime] = useState("");
-  // const [flavourProfile, setflavourProfile] = useState("sweet");
-  // const [dishType, setDishType] = useState("breakfast");
   const user = useSelector(selectUser);
   const token = useSelector(selectToken);
   const history = useHistory();
@@ -48,9 +42,7 @@ export default function RecipeShare() {
     },
   };
 
-  const onSubmit = (values) => {
-    // e.preventDefault();
-
+  const onSubmit = (values, onSubmitProps) => {
     dispatch(
       addRecipe(
         formik.values.name,
@@ -63,6 +55,25 @@ export default function RecipeShare() {
         user
       )
     );
+    onSubmitProps.setSubmitting(false);
+    onSubmitProps.resetForm();
+    setInputIngredients([
+      {
+        amount: "",
+        ingredient: "",
+        gluten: false,
+        peanut: false,
+        dairy: false,
+        egg: false,
+        seafood: false,
+        sesame: false,
+        shellfish: false,
+        soy: false,
+        meat: false,
+        treenuts: false,
+        wheat: false,
+      },
+    ]);
   };
 
   const validate = (values) => {
@@ -93,31 +104,6 @@ export default function RecipeShare() {
     onSubmit,
     validate,
   });
-
-  // function handleForm(e) {
-  //   e.preventDefault();
-
-  //   dispatch(
-  //     addRecipe(
-  //       name,
-  //       instructions,
-  //       imageUrl,
-  //       time,
-  //       flavourProfile,
-  //       dishType,
-  //       inputIngredients,
-  //       user
-  //     )
-  //   );
-  //   //reset form
-  //   setName("");
-  //   setInstructions("");
-  //   setImageUrl("");
-  //   setTime("");
-  //   setflavourProfile("");
-  //   setDishType("");
-  //   setInputIngredients([{ amount: "", ingredient: "" }]);
-  // }
 
   const handleRemoveClick = (index) => {
     const list = [...inputIngredients];
@@ -156,8 +142,6 @@ export default function RecipeShare() {
 
   function handleCheckBoxChange(e, index) {
     const { name, checked } = e.target;
-    console.log("this is the name", name);
-    console.log("this is the value", checked);
     const ingredientsList = [...inputIngredients];
     ingredientsList[index][name] = checked;
     setInputIngredients(ingredientsList);
@@ -168,8 +152,6 @@ export default function RecipeShare() {
       history.push("/");
     }
   }, [token, history]);
-
-  // console.log("form values", formik.values);
 
   return (
     <Form onSubmit={formik.handleSubmit}>
@@ -214,14 +196,12 @@ export default function RecipeShare() {
                 name="amount"
                 type="text"
                 placeholder="Enter amount"
-                // onChange={formik.handleChange}
                 value={inputIngredient.amount}
                 onChange={(e) => handleInputChange(e, index)}
               />
               <input
                 name="ingredient"
                 placeholder="Enter ingredient"
-                // onChange={formik.handleChange}
                 value={inputIngredient.ingredient}
                 onChange={(e) => handleInputChange(e, index)}
               />
@@ -352,7 +332,7 @@ export default function RecipeShare() {
             value={formik.values.time}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            type="text"
+            type="number"
             placeholder="Enter Time"
           />
           {formik.touched.time && formik.errors.time ? (
@@ -383,7 +363,6 @@ export default function RecipeShare() {
         <Form.Group controlId="formBasicDishType">
           <Form.Label>Dish type</Form.Label>
           <Form.Control
-            // onChange={(event) => setDishType(event.target.value)}
             className="selectInput"
             value={formik.values.dishType}
             onBlur={formik.handleBlur}
