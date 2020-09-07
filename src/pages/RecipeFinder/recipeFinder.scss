@@ -28,7 +28,6 @@
 .footer {
   margin-bottom: 1px;
   margin-left: 5px;
-
   bottom: 0;
 }
 
@@ -36,8 +35,15 @@
   border: none;
   border-bottom: 2px solid black;
   border-radius: 0px;
+  outline: none;
 }
 
 p {
   font-size: 19px;
+}
+
+.form-control:focus {
+  border-color: black;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
