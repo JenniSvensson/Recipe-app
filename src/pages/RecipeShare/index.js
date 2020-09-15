@@ -1,10 +1,10 @@
+import "./recipeShare.scss";
 import React, { useState, useEffect } from "react";
 import { selectToken, selectUser } from "../../store/user/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { addRecipe } from "../../store/recipe/actions";
 import { Form, Button, Container } from "react-bootstrap";
-import "./recipeShare.scss";
 import { useFormik } from "formik";
 export default function RecipeShare() {
   const dispatch = useDispatch();
@@ -75,7 +75,7 @@ export default function RecipeShare() {
       },
     ]);
   };
-
+  // formik validation to check that each field is filled in
   const validate = (values) => {
     let errors = {};
     if (!values.name) {
@@ -148,6 +148,7 @@ export default function RecipeShare() {
   }
 
   useEffect(() => {
+    // checks if there is a user signed in, if not the user gets redirected do frontpage
     if (token === null) {
       history.push("/");
     }

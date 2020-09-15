@@ -65,9 +65,11 @@ export default function RecipeDetails() {
           </Row>
         </Container>
       ) : (
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Loading...</span>
-        </Spinner>
+        <Container className="spinner">
+          <Spinner animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        </Container>
       )}
     </div>
   );

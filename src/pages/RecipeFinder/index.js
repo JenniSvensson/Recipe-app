@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectfilteredRecipes,
-  selectfilteredIngredients,
+  selectFilteredRecipes,
+  selectFilteredIngredients,
   selectSearchedRecipes,
 } from "../../store/recipe/selectors";
-// import { selectIngredients } from "../../store/ingredients/selector";
 import { getDietRecipes, getSearchedRecipe } from "../../store/recipe/actions";
 import { getIngredients } from "../../store/ingredients/actions";
 import {
@@ -14,13 +13,12 @@ import {
   Spinner,
   Container,
   CardDeck,
-  Card,
-  Col,
   Image,
 } from "react-bootstrap";
 import "./recipeFinder.scss";
 import food from "./images/Cooking.png";
-import { Link } from "react-router-dom";
+import RecipeCard from "../../components/RecipeCard";
+
 export default function RecipeFinder() {
   const [input, setInput] = useState({
     ingredient: "",
@@ -29,9 +27,8 @@ export default function RecipeFinder() {
     diet: "all",
   });
 
-  // const Recipes = useSelector(selectRecipes);
-  const Ingredients = useSelector(selectfilteredIngredients);
-  const filteredRecipes = useSelector(selectfilteredRecipes);
+  const Ingredients = useSelector(selectFilteredIngredients);
+  const filteredRecipes = useSelector(selectFilteredRecipes);
   const searchedRecipes = useSelector(selectSearchedRecipes);
   const dispatch = useDispatch();
 
@@ -195,33 +192,23 @@ export default function RecipeFinder() {
           {searchedRecipes ? (
             searchedRecipes.map((recipe) => {
               return (
-                <Col className="col-md-4 mt-4" key={recipe.id}>
-                  <Card className="h-100 shadow-sm bg-white rounded">
-                    <Card.Img variant="top" src={`${recipe.imageUrl}`} />
-                    <Card.Body className="d-flex flex-column">
-                      <div>
-                        <Card.Title className="mb-0 font-weight-bold">
-                          {recipe.name}
-                        </Card.Title>
-                      </div>
-
-                      <Card.Text>
-                        Cooking time: {recipe.preperationTime} min
-                        <br></br>
-                        Flavourprofile: {recipe.flavourProfile}
-                        <br></br>
-                        Dish type: {recipe.dishType}
-                      </Card.Text>
-                      <Link to={`/Recipes/${recipe.id}`}>
-                        Go to the instructions
-                      </Link>
-                    </Card.Body>
-                  </Card>
-                </Col>
+                <RecipeCard
+                  id={recipe.id}
+                  imageUrl={recipe.imageUrl}
+                  name={recipe.name}
+                  preperationTime={recipe.preperationTime}
+                  flavourProfile={recipe.flavourProfile}
+                  dishType={recipe.dishType}
+                  key={recipe.id + 1}
+                />
               );
             })
           ) : (
-            <p></p>
+            <Container className="spinner">
+              <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            </Container>
           )}
         </CardDeck>
         <br></br>
