@@ -13,6 +13,7 @@ import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 import RecipeDetails from "./pages/RecipeDetails";
 import RecipeShare from "./pages/RecipeShare";
+import MyRecipes from "./pages/MyRecipes";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ function App() {
         <Route path="/recipes/:id" component={RecipeDetails} />
         <Route path="/allRecipes" component={Recipes} />
         <Route path="/recipeShare" component={RecipeShare} />
+        <Route path="/user/recipe" component={MyRecipes} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
       </Switch>
