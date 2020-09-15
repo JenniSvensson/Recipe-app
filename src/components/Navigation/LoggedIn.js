@@ -12,6 +12,11 @@ export default function LoggedIn() {
     <>
       <NavbarItem path="/recipeShare" linkText="Share a recipe" />
       <Nav.Item style={{ padding: ".5rem 1rem" }}>{user.email}</Nav.Item>
+      <NavbarItem
+        path="/user/recipe"
+        linkText="My Recipes"
+        style={{ padding: ".5rem 1rem" }}
+      />
       <Button onClick={() => dispatch(logOut())}>Logout</Button>
     </>
   );
