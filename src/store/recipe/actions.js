@@ -16,6 +16,13 @@ export function fetchedDietRecipes(data) {
   };
 }
 
+export function updateRecipesStore(data) {
+  return {
+    type: "DELETE_RECIPE",
+    payload: data,
+  };
+}
+
 export function getSearchedRecipe(data) {
   return {
     type: "FETCH_SEARCHRECIPES",
@@ -77,6 +84,28 @@ export function addRecipe(
       dispatch(
         showMessageWithTimeout("success", true, "Recipe have been created")
       );
+    };
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function deleteRecipe(user, recipeId) {
+  try {
+    return async function thunk(dispatch, getState) {
+      const id = parseInt(user.id);
+      await axios.delete(
+        // API endpoint:
+        `${apiUrl}/recipe/${id}/recipes/${recipeId}`,
+        // Data to be sent along:
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+          data: { userId: id, recipeId: recipeId },
+        }
+      );
+      dispatch(updateRecipesStore());
+
+      console.log(user.id, recipeId);
     };
   } catch (error) {
     console.log(error);
