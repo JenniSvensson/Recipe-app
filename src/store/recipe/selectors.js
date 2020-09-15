@@ -1,7 +1,6 @@
-export function selectRecipes(reduxState) {
-  const result = reduxState.recipes.recipes;
-  return result;
-}
+export const selectRecipes = (reduxState) => {
+  return reduxState.recipes.recipes;
+};
 
 export const selectRecipeById = (id) => (reduxState) => {
   if (reduxState.recipes.recipes.length) {
@@ -23,17 +22,14 @@ export const selectRecipeByUserId = (id) => (reduxState) => {
   }
 };
 
-export function selectSearchedRecipes(reduxState) {
-  const result = reduxState.recipes.searchedRecipes;
-  return result;
-}
+export const selectSearchedRecipes = (reduxState) => {
+  return reduxState.recipes.searchedRecipes;
+};
 
-export function selectfilteredRecipes(reduxState) {
-  const result = reduxState.recipes.filteredRecipes;
-  return result;
-}
+export const selectFilteredRecipes = (reduxState) => {
+  return reduxState.recipes.filteredRecipes;
+};
 
-export function selectfilteredIngredients(reduxState) {
-  const result = reduxState.ingredients;
-  return result;
-}
+export const selectFilteredIngredients = (reduxState) => {
+  return reduxState.ingredients;
+};
