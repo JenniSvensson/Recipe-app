@@ -33,7 +33,7 @@ export default function RecipeDetails() {
             {/* option to delete or edit recipe */}
             {thisRecipe.userId === loggedInUser.id ? (
               <div>
-                <Button className="mr-2">Edit</Button>
+                {/* <Button className="mr-2">Edit</Button> */}
                 <Button onClick={handleClick}>Delete</Button>
               </div>
             ) : (
