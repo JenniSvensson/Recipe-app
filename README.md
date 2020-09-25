@@ -9,7 +9,9 @@ Ever struggled figuring out what to cook for dinner? Well, so do I every day. So
 
 ## App demo
 
-![image](https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/demo-1.png)
+![image](https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/demo1.png)
+![image](https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/demo2.png)
+![image](https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/demo3.png)
 
 ## Used technologies and concepts
 
