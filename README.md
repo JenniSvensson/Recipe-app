@@ -11,7 +11,13 @@ Ever struggled figuring out what to cook for dinner? Well, so do I every day. So
 
 ![image](https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/demo1.png)
 ![image](https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/demo2.png)
-![image](https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/demo3.png)
+
+<p float="left">
+  <img src="https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/demo3.png" width="350" />
+  <img src="https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/demo5.png" width="350" /> 
+</p>
+
+
 
 ## Used technologies and concepts
 
