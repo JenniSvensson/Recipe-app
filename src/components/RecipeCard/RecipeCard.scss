@@ -1,0 +1,29 @@
+.recipe-body {
+  padding-top: 55px;
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  margin-top: 100px;
+  text-align: center;
+  transform: translateY(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.recipe-card:hover .recipe-body {
+  transform: translateY(0%);
+}
+
+.recipe-card {
+  overflow: hidden;
+  position: relative;
+}
+
+.recipe-title {
+  font-family: "Merriweather", sans-serif;
+  font-weight: 400;
+  text-transform: capitalize;
+  text-align: center;
+  margin-top: 15px;
+}

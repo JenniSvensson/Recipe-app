@@ -1,28 +1,26 @@
 import React from "react";
-import { Card, Col } from "react-bootstrap";
+import { Card, Col, CardDeck } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import "./RecipeCard.scss";
+
 export default function RecipeCard(props) {
   return (
-    <Col className="col-md-4 mt-4">
-      <Card className="h-100 shadow-sm bg-white rounded">
-        <Card.Img variant="top" src={`${props.imageUrl}`} />
-        <Card.Body>
-          <div>
-            <Card.Title className="mb-0 font-weight-bold">
-              {props.name}
-            </Card.Title>
-          </div>
-          <Card.Text>
+    <Col xl={4}>
+      <CardDeck className="mt-5">
+        <Card className="h-100 shadow-sm bg-white rounded recipe-card">
+          <Card.Img variant="top" src={`${props.imageUrl}`} />
+          <div className="recipe-body">
             Cooking time: {props.preperationTime} min <br></br>
-            Flavourprofile: {props.flavourProfile}
-            <br></br>
+            Flavour profile: {props.flavourProfile} <br></br>
             Dish type: {props.dishType}
-          </Card.Text>
-          <Link to={`/Recipes/${props.id}`}>Go to the instructions</Link>
-          <br></br>
-          <br></br>
-        </Card.Body>
-      </Card>
+            <br></br>
+            <Link to={`/Recipes/${props.id}`}>Go to the instructions</Link>
+          </div>
+          <div className="recipe-title">
+            <p>{props.name}</p>
+          </div>
+        </Card>
+      </CardDeck>
     </Col>
   );
 }

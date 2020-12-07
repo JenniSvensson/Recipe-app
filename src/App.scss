@@ -2,6 +2,7 @@
 
 $theme-colors: (
   "primary": #3a8f81,
+  "secondary": #dce0d9,
 );
 
 @import "../node_modules/bootstrap/scss/bootstrap";
@@ -12,4 +13,10 @@ $theme-colors: (
   display: flex;
   flex-wrap: wrap;
   align-content: center;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Merriweather", sans-serif;
 }

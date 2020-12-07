@@ -9,17 +9,6 @@ For future features take a look here:
 
 ## App demo
 
-![image](https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/demo1.png)
-![image](https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/demo2.png)
-
-## On a smaller screen: 
-
-<p float="left">
-  <img src="https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/demo3.png" width="350" />
-  <img src="https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/demo5.png" width="350" /> 
-</p>
-
-
 
 ## Used technologies and concepts
 
@@ -73,3 +62,7 @@ During the project, I also made sure that I wrote clear commit messages and pull
 ## Server repo
 
 The server side was made with express and is connected to a Sequelize database. You can find the server side [here](https://github.com/JenniSvensson/Recipe-app-server)
+
+## Credits
+
+[Illustration by Freepik Stories](https://stories.freepik.com/hobby)
