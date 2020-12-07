@@ -21,13 +21,12 @@ export default function RecipeFinder() {
 
   const Ingredients = useSelector(selectFilteredIngredients);
   const filteredRecipes = useSelector(selectFilteredRecipes);
-  const inputFromLocalStorage = localStorage.getItem("input");
+  const inputFromLocalStorage = localStorage.getItem("inputUser");
 
   const dispatch = useDispatch();
-
   let validRecipes = filteredRecipes;
 
-  if (validRecipes) {
+  if (input.ingredient) {
     validRecipes = filteredRecipes.filter((recipie) => {
       const validingredients = recipie.ingredients.some(
         (ing) => ing.name === input.ingredient
@@ -63,14 +62,16 @@ export default function RecipeFinder() {
   function handleChange(e) {
     const userInput = { ...input, [e.target.name]: e.target.value };
     setInput(userInput);
-    localStorage.setItem("input", JSON.stringify(userInput));
+    localStorage.setItem("inputUser", JSON.stringify(userInput));
   }
 
   useEffect(() => {
     //checks if there is no recipes or ingredients if so it will go and fetch them
     dispatch(getIngredients);
     dispatch(getDietRecipes(input.diet));
-    setInput(JSON.parse(inputFromLocalStorage));
+    if (inputFromLocalStorage) {
+      setInput(JSON.parse(inputFromLocalStorage));
+    }
   }, [
     dispatch,
     inputFromLocalStorage,
