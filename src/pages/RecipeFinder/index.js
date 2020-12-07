@@ -27,7 +27,7 @@ export default function RecipeFinder() {
 
   let validRecipes = filteredRecipes;
 
-  if (input.ingredient && validRecipes) {
+  if (input.ingredient && validRecipes.length !== 0) {
     validRecipes = filteredRecipes.filter((recipie) => {
       const validingredients = recipie.ingredients.some(
         (ing) => ing.name === input.ingredient
