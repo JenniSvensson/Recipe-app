@@ -9,8 +9,6 @@ Ever struggled figuring out what to cook for dinner? Well, so do I every day. So
 
 ## App demo
 
-![image](https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/demo-1.png)
-
 ## Used technologies and concepts
 
 Click to see some examples of technologies and concepts I used in my project:
@@ -63,3 +61,7 @@ During the project, I also made sure that I wrote clear commit messages and pull
 ## Server repo
 
 The server side was made with express and is connected to a Sequelize database. You can find the server side [here](https://github.com/JenniSvensson/Recipe-app-server)
+
+## Credits
+
+[Illustration by Freepik Stories](https://stories.freepik.com/hobby)
