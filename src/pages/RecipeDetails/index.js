@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { getRecipes, deleteRecipe } from "../../store/recipe/actions";
+import { getRecipes } from "../../store/recipe/actions";
 import { selectRecipes, selectRecipeById } from "../../store/recipe/selectors";
 import { selectUser } from "../../store/user/selectors";
 import { Spinner, Button, Container, Image, Row, Col } from "react-bootstrap";
@@ -12,9 +13,9 @@ export default function RecipeDetails() {
   const Recipes = useSelector(selectRecipes);
   const thisRecipe = useSelector(selectRecipeById(RecipeId));
   const loggedInUser = useSelector(selectUser);
-
+  const history = useHistory();
   function handleClick() {
-    dispatch(deleteRecipe(loggedInUser, thisRecipe.id));
+    // dispatch(deleteRecipe(loggedInUser, thisRecipe.id));
   }
 
   useEffect(() => {
@@ -40,11 +41,30 @@ export default function RecipeDetails() {
               <p></p>
             )}
           </div>
-
+          <Button variant="secondary" onClick={() => history.goBack()}>
+            Go back
+          </Button>
           <h2>{thisRecipe.name}</h2>
           <Image rounded fluid src={`${thisRecipe.imageUrl}`} />
           <Row>
-            <p>{thisRecipe.preperationTime} min</p>
+            <p>
+              <span role="img" aria-labelledby="timer">
+                ⏲️
+              </span>
+              {thisRecipe.preperationTime}min
+            </p>
+            <p>
+              <span role="img" aria-labelledby="fork and knife">
+                🍴
+              </span>
+              {thisRecipe.dishType}
+            </p>
+            <p>
+              <span role="img" aria-labelledby="tongue">
+                👅
+              </span>
+              {thisRecipe.flavourProfile}
+            </p>
           </Row>
           <Row>
             <Col md={4}>
