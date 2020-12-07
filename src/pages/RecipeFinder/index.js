@@ -27,7 +27,7 @@ export default function RecipeFinder() {
 
   let validRecipes = filteredRecipes;
 
-  if (input.ingredient && validRecipes.length !== 0) {
+  if (validRecipes.length !== 0) {
     validRecipes = filteredRecipes.filter((recipie) => {
       const validingredients = recipie.ingredients.some(
         (ing) => ing.name === input.ingredient
@@ -36,7 +36,7 @@ export default function RecipeFinder() {
     });
   }
 
-  if (validRecipes) {
+  if (validRecipes.length !== 0) {
     validRecipes = validRecipes.filter((recipe) => {
       const flavourProfileFilledIn = Boolean(input.flavourProfile);
       const dishTypeFilledIn = Boolean(input.dishType);
