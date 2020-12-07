@@ -1,10 +1,10 @@
+import "./recipeShare.scss";
 import React, { useState, useEffect } from "react";
 import { selectToken, selectUser } from "../../store/user/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { addRecipe } from "../../store/recipe/actions";
-import { Form, Button, Container } from "react-bootstrap";
-import "./recipeShare.scss";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useFormik } from "formik";
 export default function RecipeShare() {
   const dispatch = useDispatch();
@@ -75,7 +75,7 @@ export default function RecipeShare() {
       },
     ]);
   };
-
+  // formik validation to check that each field is filled in
   const validate = (values) => {
     let errors = {};
     if (!values.name) {
@@ -148,6 +148,7 @@ export default function RecipeShare() {
   }
 
   useEffect(() => {
+    // checks if there is a user signed in, if not the user gets redirected do frontpage
     if (token === null) {
       history.push("/");
     }
@@ -156,6 +157,9 @@ export default function RecipeShare() {
   return (
     <Form onSubmit={formik.handleSubmit}>
       <Container>
+        <br></br>
+        <h3>Create and share a recipe</h3>
+        <br></br>
         <Form.Group controlId="formBasicName">
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -191,119 +195,134 @@ export default function RecipeShare() {
 
         {inputIngredients.map((inputIngredient, index) => {
           return (
-            <div key={index}>
-              <input
-                name="amount"
-                type="text"
-                placeholder="Enter amount"
-                value={inputIngredient.amount}
-                onChange={(e) => handleInputChange(e, index)}
-              />
-              <input
-                name="ingredient"
-                placeholder="Enter ingredient"
-                value={inputIngredient.ingredient}
-                onChange={(e) => handleInputChange(e, index)}
-              />
-              <Form.Check
-                inline
-                label="gluten"
-                name="gluten"
-                type="checkbox"
-                onChange={(e) => handleCheckBoxChange(e, index)}
-                id="gluten"
-              />
-              <Form.Check
-                inline
-                label="peanut"
-                name="peanut"
-                type="checkbox"
-                onChange={(e) => handleCheckBoxChange(e, index)}
-                id="peanut"
-              />
-              <Form.Check
-                inline
-                label="dairy"
-                name="dairy"
-                type="checkbox"
-                id="dairy"
-                onChange={(e) => handleCheckBoxChange(e, index)}
-              />
-              <Form.Check
-                inline
-                label="egg"
-                name="egg"
-                type="checkbox"
-                onChange={(e) => handleCheckBoxChange(e, index)}
-                id="egg"
-              />
-              <Form.Check
-                inline
-                label="seafood"
-                name="seafood"
-                type="checkbox"
-                onChange={(e) => handleCheckBoxChange(e, index)}
-                id="seafood"
-              />
-              <Form.Check
-                inline
-                label="sesame"
-                name="sesame"
-                type="checkbox"
-                onChange={(e) => handleCheckBoxChange(e, index)}
-                id="sesame"
-              />
-              <Form.Check
-                inline
-                label="shellfish"
-                name="shellfish"
-                type="checkbox"
-                onChange={(e) => handleCheckBoxChange(e, index)}
-                id="shellfish"
-              />
-              <Form.Check
-                inline
-                label="soy"
-                name="soy"
-                type="checkbox"
-                onChange={(e) => handleCheckBoxChange(e, index)}
-                id="soy"
-              />
-              <Form.Check
-                inline
-                label="meat"
-                name="meat"
-                type="checkbox"
-                onChange={(e) => handleCheckBoxChange(e, index)}
-                id="meat"
-              />
-              <Form.Check
-                inline
-                label="treenuts"
-                name="treenuts"
-                type="checkbox"
-                onChange={(e) => handleCheckBoxChange(e, index)}
-                id="treenuts"
-              />
-              <Form.Check
-                inline
-                label="wheat"
-                name="wheat"
-                type="checkbox"
-                onChange={(e) => handleCheckBoxChange(e, index)}
-                id="wheat"
-              />
-
-              <div>
-                {inputIngredients.length !== 1 && (
-                  <button onClick={() => handleRemoveClick(index)}>
-                    Remove
-                  </button>
-                )}
-                {inputIngredients.length - 1 === index && (
-                  <button onClick={handleAddClick}>Add</button>
-                )}
-              </div>
+            <div className="ingredients-row" key={index}>
+              <Row>
+                <Col>
+                  <input
+                    name="amount"
+                    type="text"
+                    className="ml-1"
+                    placeholder="Enter amount"
+                    value={inputIngredient.amount}
+                    onChange={(e) => handleInputChange(e, index)}
+                  />
+                  <input
+                    name="ingredient"
+                    placeholder="Enter ingredient"
+                    className="ml-1"
+                    value={inputIngredient.ingredient}
+                    onChange={(e) => handleInputChange(e, index)}
+                  />
+                  <Form.Check
+                    inline
+                    label="gluten"
+                    name="gluten"
+                    type="checkbox"
+                    onChange={(e) => handleCheckBoxChange(e, index)}
+                    id="gluten"
+                  />
+                  <Form.Check
+                    inline
+                    label="peanut"
+                    name="peanut"
+                    type="checkbox"
+                    onChange={(e) => handleCheckBoxChange(e, index)}
+                    id="peanut"
+                  />
+                  <Form.Check
+                    inline
+                    label="dairy"
+                    name="dairy"
+                    type="checkbox"
+                    id="dairy"
+                    onChange={(e) => handleCheckBoxChange(e, index)}
+                  />
+                  <Form.Check
+                    inline
+                    label="egg"
+                    name="egg"
+                    type="checkbox"
+                    onChange={(e) => handleCheckBoxChange(e, index)}
+                    id="egg"
+                  />
+                  <Form.Check
+                    inline
+                    label="seafood"
+                    name="seafood"
+                    type="checkbox"
+                    onChange={(e) => handleCheckBoxChange(e, index)}
+                    id="seafood"
+                  />
+                  <Form.Check
+                    inline
+                    label="sesame"
+                    name="sesame"
+                    type="checkbox"
+                    onChange={(e) => handleCheckBoxChange(e, index)}
+                    id="sesame"
+                  />
+                  <Form.Check
+                    inline
+                    label="shellfish"
+                    name="shellfish"
+                    type="checkbox"
+                    onChange={(e) => handleCheckBoxChange(e, index)}
+                    id="shellfish"
+                  />
+                  <Form.Check
+                    inline
+                    label="soy"
+                    name="soy"
+                    type="checkbox"
+                    onChange={(e) => handleCheckBoxChange(e, index)}
+                    id="soy"
+                  />
+                  <Form.Check
+                    inline
+                    label="meat"
+                    name="meat"
+                    type="checkbox"
+                    onChange={(e) => handleCheckBoxChange(e, index)}
+                    id="meat"
+                  />
+                  <Form.Check
+                    inline
+                    label="treenuts"
+                    name="treenuts"
+                    type="checkbox"
+                    onChange={(e) => handleCheckBoxChange(e, index)}
+                    id="treenuts"
+                  />
+                  <Form.Check
+                    inline
+                    label="wheat"
+                    name="wheat"
+                    type="checkbox"
+                    onChange={(e) => handleCheckBoxChange(e, index)}
+                    id="wheat"
+                  />
+                </Col>
+                <Col>
+                  {inputIngredients.length !== 1 && (
+                    <Button
+                      className="ml-1"
+                      variant="outline-secondary"
+                      onClick={() => handleRemoveClick(index)}
+                    >
+                      Remove
+                    </Button>
+                  )}
+                  {inputIngredients.length - 1 === index && (
+                    <Button
+                      variant="outline-secondary"
+                      className="ml-1"
+                      onClick={handleAddClick}
+                    >
+                      Add
+                    </Button>
+                  )}
+                </Col>
+              </Row>
             </div>
           );
         })}

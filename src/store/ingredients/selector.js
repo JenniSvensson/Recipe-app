@@ -1,4 +1,3 @@
-export function selectIngredients(reduxState) {
-  const result = reduxState.ingredients;
-  return result;
-}
+export const selectIngredients = (reduxState) => {
+  return reduxState.ingredients;
+};

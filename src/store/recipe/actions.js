@@ -37,7 +37,6 @@ export function getDietRecipes(diet) {
   return async function thunk(dispatch, getState) {
     try {
       const response = await axios.get(`${apiUrl}/recipe/diet?diet=${diet}`);
-
       dispatch(fetchedDietRecipes(response.data));
     } catch (error) {
       console.log("error", error);

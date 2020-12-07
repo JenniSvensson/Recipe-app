@@ -1,51 +1,42 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectfilteredRecipes,
-  selectfilteredIngredients,
-  selectSearchedRecipes,
+  selectFilteredRecipes,
+  selectFilteredIngredients,
 } from "../../store/recipe/selectors";
-// import { selectIngredients } from "../../store/ingredients/selector";
-import { getDietRecipes, getSearchedRecipe } from "../../store/recipe/actions";
+import { getDietRecipes } from "../../store/recipe/actions";
 import { getIngredients } from "../../store/ingredients/actions";
-import {
-  Form,
-  Button,
-  Spinner,
-  Container,
-  CardDeck,
-  Card,
-  Col,
-  Image,
-} from "react-bootstrap";
+import { Form, Spinner, Container, Image, Row } from "react-bootstrap";
 import "./recipeFinder.scss";
-import food from "./images/Cooking.png";
-import { Link } from "react-router-dom";
+import food from "./images/Choice-pana.png";
+import RecipeCard from "../../components/RecipeCard";
+
 export default function RecipeFinder() {
   const [input, setInput] = useState({
     ingredient: "",
-    flavourProfile: "sweet",
-    dishType: "breakfast",
-    diet: "all",
+    flavourProfile: "",
+    dishType: "",
+    diet: "",
   });
 
-  // const Recipes = useSelector(selectRecipes);
-  const Ingredients = useSelector(selectfilteredIngredients);
-  const filteredRecipes = useSelector(selectfilteredRecipes);
-  const searchedRecipes = useSelector(selectSearchedRecipes);
+  const Ingredients = useSelector(selectFilteredIngredients);
+  const filteredRecipes = useSelector(selectFilteredRecipes);
+  const inputFromLocalStorage = localStorage.getItem("input");
+
   const dispatch = useDispatch();
 
-  function filterRecipe() {
-    let validRecipes = filteredRecipes;
-    if (input.ingredient) {
-      validRecipes = filteredRecipes.filter((recipie) => {
-        const validingredients = recipie.ingredients.some(
-          (ing) => ing.name === input.ingredient
-        );
-        return validingredients;
-      });
-    }
+  let validRecipes = filteredRecipes;
 
+  if (input.ingredient) {
+    validRecipes = filteredRecipes.filter((recipie) => {
+      const validingredients = recipie.ingredients.some(
+        (ing) => ing.name === input.ingredient
+      );
+      return validingredients;
+    });
+  }
+
+  if (validRecipes) {
     validRecipes = validRecipes.filter((recipe) => {
       const flavourProfileFilledIn = Boolean(input.flavourProfile);
       const dishTypeFilledIn = Boolean(input.dishType);
@@ -67,24 +58,26 @@ export default function RecipeFinder() {
           return true;
       }
     });
-
-    dispatch(getSearchedRecipe(validRecipes));
-  }
-
-  function handleClick(e) {
-    filterRecipe();
   }
 
   function handleChange(e) {
-    setInput({ ...input, [e.target.name]: e.target.value });
+    const userInput = { ...input, [e.target.name]: e.target.value };
+    setInput(userInput);
+    localStorage.setItem("input", JSON.stringify(userInput));
   }
 
   useEffect(() => {
     //checks if there is no recipes or ingredients if so it will go and fetch them
-
     dispatch(getIngredients);
     dispatch(getDietRecipes(input.diet));
-  }, [dispatch, input.diet]);
+    setInput(JSON.parse(inputFromLocalStorage));
+  }, [
+    dispatch,
+    inputFromLocalStorage,
+    input.diet,
+    input.flavourProfile,
+    input.dishType,
+  ]);
 
   return (
     <div>
@@ -95,8 +88,8 @@ export default function RecipeFinder() {
               <div className="header-column">
                 <h1>Find the perfect recipe</h1>
                 <p>
-                  Parsley shallot courgette tatsoi pea sprouts fava bean collard
-                  greens dandelion okra wakame tomato.
+                  Having trouble deciding what to eat? no worries just fill in
+                  these questions and we will find you the perfect match.
                 </p>
               </div>
               <div className="header-column">
@@ -106,10 +99,10 @@ export default function RecipeFinder() {
           </Container>
 
           <Container className=" mt-5">
-            <p>
+            <h3>
               Let's start! Please answer these questions to find something nice
               to cook.
-            </p>
+            </h3>
             <Form>
               <Form.Group>
                 <p>I am going to eat </p>
@@ -120,7 +113,9 @@ export default function RecipeFinder() {
                     name="dishType"
                     as="select"
                     className="selectInput"
+                    value={`${input.dishType}`}
                   >
+                    <option value=""></option>
                     <option value="breakfast">Breakfast</option>
                     <option value="lunch">Lunch</option>
                     <option value="dinner">Dinner</option>
@@ -136,7 +131,9 @@ export default function RecipeFinder() {
                   className="selectInput"
                   name="diet"
                   as="select"
+                  value={`${input.diet}`}
                 >
+                  <option value=""></option>
                   <option value="">All</option>
                   <option value="vegan">Vegan</option>
                   <option value="vegetarian">Vegetarian</option>
@@ -151,7 +148,9 @@ export default function RecipeFinder() {
                   name="flavourProfile"
                   as="select"
                   className="selectInput"
+                  value={`${input.flavourProfile}`}
                 >
+                  <option value=""></option>
                   <option value="sweet">Sweet</option>
                   <option value="salty">Salty</option>
                   <option value="savoury">Savoury</option>
@@ -167,6 +166,7 @@ export default function RecipeFinder() {
                   name="ingredient"
                   type="text"
                   list="ingredients"
+                  value={`${input.ingredient}`}
                   onChange={handleChange}
                 />
                 <datalist id="ingredients">
@@ -176,10 +176,6 @@ export default function RecipeFinder() {
                 </datalist>
               </Form.Group>
             </Form>
-            <br></br>
-            <Button variant="primary" onClick={handleClick}>
-              Search
-            </Button>
           </Container>
         </div>
       ) : (
@@ -189,48 +185,43 @@ export default function RecipeFinder() {
           </Spinner>
         </Container>
       )}
-      <br></br>
-      <Container>
-        <CardDeck>
-          {searchedRecipes ? (
-            searchedRecipes.map((recipe) => {
-              return (
-                <Col className="col-md-4 mt-4" key={recipe.id}>
-                  <Card className="h-100 shadow-sm bg-white rounded">
-                    <Card.Img variant="top" src={`${recipe.imageUrl}`} />
-                    <Card.Body className="d-flex flex-column">
-                      <div>
-                        <Card.Title className="mb-0 font-weight-bold">
-                          {recipe.name}
-                        </Card.Title>
-                      </div>
 
-                      <Card.Text>
-                        Cooking time: {recipe.preperationTime} min
-                        <br></br>
-                        Flavourprofile: {recipe.flavourProfile}
-                        <br></br>
-                        Dish type: {recipe.dishType}
-                      </Card.Text>
-                      <Link to={`/Recipes/${recipe.id}`}>
-                        Go to the instructions
-                      </Link>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              );
-            })
-          ) : (
-            <p></p>
-          )}
-        </CardDeck>
-        <br></br>
-      </Container>
-      <div className="footer">
-        <a href="https://stories.freepik.com/hobby">
-          Illustration by Freepik Stories
-        </a>
-      </div>
+      {(input.diet && validRecipes) ||
+      (input.dishType && validRecipes) ||
+      (input.flavourProfile && validRecipes) ||
+      (input.ingredient && validRecipes) ? (
+        <Container className="recipe-box">
+          <br></br>
+          <h2>
+            Found {validRecipes.length} recipes that matches your conditions
+          </h2>
+          <Row>
+            {validRecipes ? (
+              validRecipes.map((recipe) => {
+                return (
+                  <RecipeCard
+                    id={recipe.id}
+                    imageUrl={recipe.imageUrl}
+                    name={recipe.name}
+                    preperationTime={recipe.preperationTime}
+                    flavourProfile={recipe.flavourProfile}
+                    dishType={recipe.dishType}
+                    key={recipe.id + 1}
+                    recipes={validRecipes}
+                  />
+                );
+              })
+            ) : (
+              <p>loading</p>
+            )}
+          </Row>
+          <br></br>
+        </Container>
+      ) : (
+        <p></p>
+      )}
+
+      <div className="footer"></div>
     </div>
   );
 }

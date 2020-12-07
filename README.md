@@ -4,12 +4,11 @@
 
 Ever struggled figuring out what to cook for dinner? Well, so do I every day. So I thought it would be nice to create an app that can solve this issue by giving some inspiration. A user can search on recipes based on ingredients, flavour profile and other criteria. They can also add recipes themselves.
 
-\*\*This project is still in development, for future features take a look here:
+For future features take a look here:
 [HERE](https://github.com/JenniSvensson/Recipe-app-client/projects/1)
 
 ## App demo
 
-![image](https://github.com/JenniSvensson/Recipe-app-client/blob/development/readme-pictures/demo-1.png)
 
 ## Used technologies and concepts
 
@@ -63,3 +62,7 @@ During the project, I also made sure that I wrote clear commit messages and pull
 ## Server repo
 
 The server side was made with express and is connected to a Sequelize database. You can find the server side [here](https://github.com/JenniSvensson/Recipe-app-server)
+
+## Credits
+
+[Illustration by Freepik Stories](https://stories.freepik.com/hobby)

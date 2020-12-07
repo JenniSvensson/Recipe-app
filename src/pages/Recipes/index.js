@@ -1,46 +1,74 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { getRecipes } from "../../store/recipe/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { selectRecipes } from "../../store/recipe/selectors";
-import { Link } from "react-router-dom";
-import { Spinner, Container, Card, Col, CardDeck } from "react-bootstrap";
+import { Spinner, Container, Row, Form, Button, Col } from "react-bootstrap";
+import RecipeCard from "../../components/RecipeCard";
 export default function Recipes() {
   const dispatch = useDispatch();
-
+  const [search, setSearch] = useState("");
   const Recipes = useSelector(selectRecipes);
+  var searchText = localStorage.getItem("search");
+  let recipesToDisplay;
+
+  if (Recipes && search) {
+    recipesToDisplay = Recipes.filter((recipe) =>
+      recipe.name.toLowerCase().includes(search.toLowerCase())
+    );
+  } else {
+    recipesToDisplay = Recipes;
+  }
+
+  function handleSearch(e) {
+    const searchInput = e.target.value;
+    setSearch(searchInput);
+    localStorage.setItem("search", searchInput);
+  }
+
+  function handleClear(e) {
+    localStorage.removeItem("search");
+    setSearch("");
+  }
 
   useEffect(() => {
     dispatch(getRecipes);
-  }, [dispatch]);
+    setSearch(searchText);
+  }, [dispatch, searchText]);
   return (
     <div>
-      <Container className="mt-5">
-        <CardDeck>
-          {Recipes.length ? (
-            Recipes.map((recipe) => {
+      <Container className="p-3">
+        <h3 className="mt-2">Discover</h3>
+        <Form className="d-flex justify-content-end ">
+          <Form.Row>
+            <Col xs={8}>
+              <Form.Control
+                className="search-bar"
+                type="text"
+                placeholder="Search by name"
+                value={search}
+                onChange={handleSearch}
+              />
+            </Col>
+            <Col xs="auto">
+              <Button onClick={handleClear} value={search} variant="secondary">
+                Clear
+              </Button>
+            </Col>
+          </Form.Row>
+        </Form>
+        <Row>
+          {recipesToDisplay ? (
+            recipesToDisplay.map((recipe) => {
               return (
-                <Col className="col-md-4 mt-4">
-                  <Card className="h-100 shadow-sm bg-white rounded">
-                    <Card.Img variant="top" src={`${recipe.imageUrl}`} />
-                    <Card.Body>
-                      <div>
-                        <Card.Title className="mb-0 font-weight-bold">
-                          {recipe.name}
-                        </Card.Title>
-                      </div>
-
-                      <Card.Text>
-                        Cooking time: {recipe.preperationTime} min <br></br>
-                        Flavourprofile: {recipe.flavourProfile}
-                        <br></br>
-                        Dish type: {recipe.dishType}
-                      </Card.Text>
-                      <Link to={`/Recipes/${recipe.id}`}>
-                        Go to the instructions
-                      </Link>
-                    </Card.Body>
-                  </Card>
-                </Col>
+                <RecipeCard
+                  id={recipe.id}
+                  imageUrl={recipe.imageUrl}
+                  name={recipe.name}
+                  preperationTime={recipe.preperationTime}
+                  flavourProfile={recipe.flavourProfile}
+                  dishType={recipe.dishType}
+                  key={recipe.id + 1}
+                />
               );
             })
           ) : (
@@ -50,7 +78,14 @@ export default function Recipes() {
               </Spinner>
             </Container>
           )}
-        </CardDeck>
+          <br></br>
+          <div>
+            {recipesToDisplay.length === 0 && search && (
+              <h2>No recipe found. Try searching with a diffrent name</h2>
+            )}
+          </div>
+        </Row>
+        <br></br>
       </Container>
     </div>
   );

@@ -26,6 +26,7 @@
 }
 
 .footer {
+  position: absolute;
   margin-bottom: 1px;
   margin-left: 5px;
   bottom: 0;
@@ -46,4 +47,8 @@ p {
   border-color: black;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+
+.recipe-box {
+  background-color: #e2e2e2;
 }
